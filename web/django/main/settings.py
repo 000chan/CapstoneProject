@@ -77,7 +77,6 @@ WSGI_APPLICATION = 'main.wsgi.application'
 #         'PORT': '3306', # DB 포트번호
 #     }
 # }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
