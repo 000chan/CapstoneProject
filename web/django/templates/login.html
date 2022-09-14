@@ -1,0 +1,43 @@
+{% load static %}
+
+{% block contents %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
+    body {
+		font-family: 'Noto Sans KR', sans-serif;
+    }
+    #id_user_id, #id_user_pw {
+        width:550px;
+        height: 60px;
+        background-color: rgb(250, 211, 178);
+        border-style: none;
+        border-radius: 5px;
+    }
+</style>
+<body style="background-color: rgb(248, 245, 241);">
+    <a href="{% url 'home:home' %}" style="text-decoration: underline; font-size: 18px; color:rgb(150, 126, 81); font-weight: bold;">뒤로가기</a>
+    <form action="" method="POST" style="text-align: center; padding-top: 8%;">
+        <h2 style="font-weight: 900; padding-bottom: 20px;">로그인</h2>
+        {% csrf_token %}
+
+        {% for form in forms %}
+        <label style="font-weight: 800;" for="{{ form.id_for_label }}">{{ form.label }}</label>
+        <div style="height: 60px; padding-top: 10px; padding-bottom: 25px;">{{ form }}</div>
+        {% endfor %}
+
+        {% if error %}
+        {{ error }}
+        {% endif %}
+
+        <br>
+        <button type="submit" name="login-submit" value="login" style="height: 40px; width: 80px; border-style: none; background-color: rgb(253, 230, 199); border-radius: 7px;">login</button>
+        <br><br>
+
+        <div>
+            계정이 없으신가요 ? &ensp;<strong><a href="{% url 'user:register' %}" style="text-decoration: underline;">회원가입</a></strong>
+        </div>
+</form>
+</body>
+
+
+{% endblock contents %}

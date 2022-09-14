@@ -1,0 +1,200 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block contents %}
+<style>
+	@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
+    body {
+		font-family: 'Gowun Batang', serif;
+    }
+</style>
+	<body class="homepage is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+                <div id="header" style="background-image: url('/static/images/service_background.jpg'); background-size: 100% 100%;">
+                        <!-- Nav -->
+                            <nav id="nav" style="color: aliceblue; font-size: 19px;">
+                                <ul>
+                                    <li><a href="{% url 'service:home' %}">홈</a></li>
+                                    <li>소개
+                                        <ul>
+                                            <li>팀원
+												<ul>
+													<li><a href="{% url 'service:chan' %}">김영찬</a></li>
+													<li><a href="{% url 'service:hoon' %}">안영훈</a></li>
+												</ul>
+											</li>
+                                            <li><a href="{% url 'service:project' %}">프로젝트</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="{% url 'service:maps' %}">추적하기</a></li>
+                                    <li>끝내기
+                                        <ul>
+                                            <li><a href="{% url 'user:logout' %}">로그아웃</a></li>
+                                        </ul>
+                                </ul>
+                            </nav>
+						<!-- Inner -->
+							<div class="inner">
+								<header style="padding-top: 190px; padding-bottom: 40px;">
+									<h2><strong>{{login_session}}</strong>님</h2>
+									<p style="color: aliceblue; height: 200px;">치매 환자 추적 서비스 페이지에 오신 것을 환영합니다</p>
+								</header>
+								<div>
+									오늘의 소식을 확인해보세요<br>
+									<a class="scrolly" href="#footer"><img src="{% static 'images/down-arrow-white.png' %}" style="width: 30px; padding: 0%;"></a>
+								</div>
+							</div>
+                    </div>
+
+			<!-- Footer -->
+				<div id="footer">
+					<div class="container">
+						<div class="row">
+
+							<!-- News -->
+								<section class="col-4 col-12-mobile">
+									<header>
+										<h2 class="icon brands fa-twitter circled"><span class="label">Tweets</span></h2>
+									</header>
+									<ul class="divided">
+										<li>
+											<article class="tweet">
+												<a href="#">소식 1</a>
+												<span class="timestamp" style="font-size:12px;">&nbsp&nbsp&nbsp5분 전</span>
+											</article>
+										</li>
+										<li>
+											<article class="tweet">
+												<a href="#">소식 2</a>
+												<span class="timestamp" style="font-size:12px;">&nbsp&nbsp&nbsp30분 전</span>
+											</article>
+										</li>
+										<li>
+											<article class="tweet">
+												<a href="#">소식 3</a>
+												<span class="timestamp" style="font-size:12px;">&nbsp&nbsp&nbsp3시간 전</span>
+											</article>
+										</li>
+										<li>
+											<article class="tweet">
+												<a href="#">소식 4</a>
+												<span class="timestamp" style="font-size:12px;">&nbsp&nbsp&nbsp5시간 전</span>
+											</article>
+										</li>
+									</ul>
+								</section>
+
+							<!-- Updates -->
+								<section class="col-4 col-12-mobile">
+									<header>
+										<h2 class="icon solid fa-file circled"><span class="label">Posts</span></h2>
+									</header>
+									<ul class="divided">
+										<li>
+											<article class="post stub">
+												<header>
+													<h3><a href="#">업데이트 1<small style="font-size: 15px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp업데이트 내용</small></a></h3>
+												</header>
+												<span class="timestamp" style="font-size: 15px;">3시간 전</span>
+											</article>
+										</li>
+										<li>
+											<article class="post stub">
+												<header>
+													<h3><a href="#">업데이트 2<small style="font-size: 15px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp업데이트 내용</small></a></h3>
+												</header>
+												<span class="timestamp" style="font-size: 15px;">6시간 전</span>
+											</article>
+										</li>
+										<li>
+											<article class="post stub">
+												<header>
+													<h3><a href="#">업데이트 3<small style="font-size: 15px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp업데이트 내용</small></a></h3>
+												</header>
+												<span class="timestamp" style="font-size: 15px;">어제</span>
+											</article>
+										</li>
+										<li>
+											<article class="post stub">
+												<header>
+													<h3><a href="#">업데이트 4<small style="font-size: 15px;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp업데이트 내용</small></a></h3>
+												</header>
+												<span class="timestamp" style="font-size: 15px;">2일 전</span>
+											</article>
+										</li>
+									</ul>
+								</section>
+
+							<!-- Photos -->
+								<section class="col-4 col-12-mobile">
+									<header>
+										<h2 class="icon solid fa-camera circled"><span class="label">Photos</span></h2>
+									</header>
+									<div class="row gtr-25">
+										<div class="col-6">
+											<a href="#" class="image fit"><img src="{% static 'images/footer1.png' %}" alt="" /></a>
+										</div>
+										<div class="col-6">
+											<a href="#" class="image fit"><img src="{% static 'images/footer2.jpeg' %}" alt="" style="height: 110px;"/></a>
+										</div>
+										<div class="col-6">
+											<a href="#" class="image fit"><img src="{% static 'images/footer3.png' %}" alt="" /></a>
+										</div>
+										<div class="col-6">
+											<a href="#" class="image fit"><img src="{% static 'images/footer4.jpg' %}" alt="" style="height: 150px;"/></a>
+										</div>
+										<div class="col-6">
+											<a href="#" class="image fit"><img src="{% static 'images/footer5.jpg' %}" alt="" /></a>
+										</div>
+										<div class="col-6">
+											<a href="#" class="image fit"><img src="{% static 'images/footer6.png' %}" alt=""/></a>
+										</div>
+									</div>
+								</section>
+
+						</div>
+						<hr />
+						<div class="row">
+							<div class="col-12">
+
+								<!-- Contact -->
+									<section class="contact">
+										<ul class="icons">
+											<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+											<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+											<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+											<li><a href="#" class="icon brands fa-pinterest"><span class="label">Pinterest</span></a></li>
+											<li><a href="#" class="icon brands fa-dribbble"><span class="label">Dribbble</span></a></li>
+											<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">Linkedin</span></a></li>
+										</ul>
+									</section>
+
+								<!-- Copyright -->
+									<div class="copyright">
+										<ul class="menu">
+											<li>&copy; Untitled. All rights reserved.</li><li>단국대학교 응용컴퓨터공학과</li>
+										</ul>
+									</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'js/jquery.min.js' %}"></script>
+			<script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
+			<script src="{% static 'js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'js/browser.min.js' %}"></script>
+			<script src="{% static 'js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'js/util.js' %}"></script>
+			<script src="{% static 'js/main.js' %}"></script>
+
+	</body>
+{% endblock contents %}

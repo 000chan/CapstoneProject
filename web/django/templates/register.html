@@ -1,0 +1,38 @@
+{% load static %}
+
+{% block contents %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
+    body {
+		font-family: 'Noto Sans KR', sans-serif;
+    }
+    #id_user_id, #id_user_pw, #id_user_pw_confirm, #id_user_name, #id_user_gender, #id_user_resident_number, #id_user_phone_number,
+    #id_user_emergency_number, #id_user_email, #id_user_address, #id_user_protected_name {
+        width:450px;
+        height: 40px;
+        background-color: white;
+        border-style: none;
+        border-radius: 5px;
+    }
+</style>
+
+<body style="background-color: rgb(247, 244, 239);">
+    <a href="{% url 'home:home' %}" style="text-decoration: underline; font-size: 18px; color:rgb(150, 126, 81); font-weight: bold;">뒤로가기</a>
+    <form action="" method="POST" style="text-align: center;">
+        <h2 style="font-weight: 900; padding-bottom: 20px;">회원가입</h2>
+        {% csrf_token %}
+
+        {% for form in forms %}
+        <label style="font-size: 15px; font-weight: 700;" for="{{ form.id_for_label }}">{{ form.label }}</label>
+        <div style="height: 60px; padding-top: 10px;">{{ form }}</div>
+        {% endfor %}
+
+        {% if error %}
+        {{ error }}
+        {% endif %}
+
+        <p><br></p>
+        <button type="submit" name="register-submit" value="register">회원가입하기</button>
+    </form>
+</body>
+{% endblock contents %}

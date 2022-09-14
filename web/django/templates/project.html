@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html> 
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
+    body {
+		font-family: 'Gowun Batang', serif;
+        background-image: url('/static/images/service_background.jpg');
+        background-size: 100% 100%;
+    }
+</style>
+<body>
+    <div id="info" style="background-color: rgba(255, 255, 255, 0.342); margin:auto; margin-top: 8%; width: 700px; padding-top: 7px; padding-bottom: 45px; border-radius: 10px;">
+        <p style="text-align: center;"><img style="width:120px; height:60;" src="{% static 'images/support.png' %}" alt="" /></p>
+        <br>
+        <p style="text-align: center;">html, css, javascript</p>
+        <p style="text-align: center;">django, nginx</p>
+        <p style="text-align: center;">redis, sqlite3</p>
+        <p style="text-align: center;">docker</p>
+        <p style="text-align: center;">network (tcp/ip soket, mac address)</p>
+        <p style="text-align: center;">raspberry pi, arduino, neo 6m</p>
+        <p style="text-align: center;">nhn cloud server</p>
+        <p style="text-align: center;">github</p>
+    </div>
+    <div style="text-align: center; text-decoration: none; font-weight: bold; margin-top: 20px; margin-bottom: 90px;">
+        <button style="width: 70px; height:30px; border-radius: 10px; border-style: none; background-color: rgba(255, 255, 255, 0.342);"><a style="text-decoration: none; color:green" href="{% url 'service:home' %}">뒤로가기</a></button>
+    </div>
+</body>

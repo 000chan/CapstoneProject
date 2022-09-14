@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap');
+    body {
+		font-family: 'Gowun Batang', serif;
+        background-image: url('/static/images/service_background.jpg');
+        background-size: 100% 100%;
+    }
+</style>
+<body>
+    <div id="info" style="background-color: rgba(255, 255, 255, 0.342); margin:auto; margin-top: 200px; width: 700px; padding-top: 20px; padding-bottom: 10px; border-radius: 10px;">
+        <p style="text-align: center;">김영찬</p>
+        <p style="text-align: center;">단국대학교 응용컴퓨터공학과</p>
+        <p style="text-align: center;"><img src="{% static 'images/dku.png' %}" alt="" /></p>
+    </div>
+    <div style="text-align: center; text-decoration: none; font-weight: bold; margin-top: 20px; margin-bottom: 90px;">
+        <button style="width: 70px; height:30px; border-radius: 10px; border-style: none; background-color: rgba(255, 255, 255, 0.342);"><a style="text-decoration: none; color:green" href="{% url 'service:home' %}">뒤로가기</a></button>
+    </div>
+</body>
