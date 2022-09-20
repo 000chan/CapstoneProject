@@ -20,3 +20,11 @@
 - Python virtual environment
   - [ ] Python 3.8.10
   - [ ] Django 4.1.1
+  - [ ] [Reference](https://www.scaleway.com/en/docs/tutorials/django-ubuntu-focal-fossa/)
+
+
+|    프로젝트 구조도   |
+| --------------------------------------- |
+| <img src="./docs/img/01.png"> |
+
+<br/>
