@@ -14,3 +14,9 @@
 
 ## (GCP) 임시 클라우드 서버
 - 외부 고정 IP : 34.64.174.103
+
+## 클라우드 환경
+- Ubuntu Linux 20.04 LTS
+- Python virtual environment
+  - [ ] Python 3.8.10
+  - [ ] Django 4.1.1
