@@ -22,8 +22,7 @@
   - [ ] Django 4.1.1
   * [Reference](https://www.scaleway.com/en/docs/tutorials/django-ubuntu-focal-fossa/)
 
-|  가상환경 켜기 |   source my_env/bin/activate   |
-|  가상환경 끄기 |               deactivate            |
+
 <br/>
 
 |    프로젝트 구조도   |
