@@ -10,20 +10,21 @@
 #include"./hiredis-master/hiredis-master/hiredis.h"
 
 
-#define CLIENT_MAX 10
-#define BUFFSIZE 1000
+#define CLIENT_MAX 100
+#define BUFFSIZE 1024
+
 
 
 int g_client_socks[CLIENT_MAX];
-int g_client_count = 0;
+int g_client_count;
 pthread_mutex_t g_mutex;
 
 
 struct gps_data {
-	char id_num[10];
-	char longitude[30];
-	char latitude[30];
-	char macadr[20];
+	char id_num[64];
+	char longitude[64];
+	char latitude[64];
+	char macadr[64];
 };
 
 
