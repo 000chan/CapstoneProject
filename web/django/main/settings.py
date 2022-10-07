@@ -66,13 +66,13 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/4.0/ref/settings/databases
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'edsuser', #DB 이름
+#         'NAME': '', #DB 이름
 #         'USER': 'root', # DB 계정
-#         'PASSWORD': '', # DB 계정 비밀번호
+#         'PASSWORD': 'DKUcap23!', # DB 계정 비밀번호
 #         'HOST': 'localhost', # DB IP 주소
 #         'PORT': '3306', # DB 포트번호
 #     }
@@ -85,15 +85,15 @@ DATABASES = {
 }
 
 # Cache
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://capstone-redis:6379/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    }
-}
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": "redis://capstone-redis:6379/1",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         }
+#     }
+# }
 
 
 # Password validation
