@@ -1,0 +1,19 @@
+[nginx, uwsgi, django 연결 가이드]
+
+  1. nginx, uwsgi, django, 필요 패키지 설치
+
+  2. django 프로젝트 settings.py의 allowed host 설정
+
+  3. django 프로젝트 디렉토리에 uwsgi.ini 파일 생성
+
+  4. uwsgi --ini uwsgi.ini 명령을 통해 연결을 위한 소켓 생성
+
+  5. /etc/nginx/sites-available에 nginx default 파일 생성
+
+  6. /etc/nginx/sites-available의 nginx default 파일과 /etc/nginx/sites-enabled 링크 설정
+
+  7. systemctl 명령을 통해 nginx reload
+
+  8. sudo uwsgi --http 0.0.0.0:8000 --module 프로젝트명.wsgi 명령을 .sh 실행파일로 저장
+
+  9. nohup, &(background) 명령을 통해 생성된 .sh 파일 실행
