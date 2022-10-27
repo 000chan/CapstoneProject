@@ -5,7 +5,6 @@ from .models import User
 
 # register form
 class RegisterForm(forms.ModelForm):
-
     user_id = forms.CharField(
         label='아이디',
         required=True,
@@ -166,7 +165,7 @@ class RegisterForm(forms.ModelForm):
         }
     )
 
-
+    # set field order
     field_order = [
         'user_id',
         'user_pw',
@@ -181,7 +180,7 @@ class RegisterForm(forms.ModelForm):
         'user_protected_name',
     ]
 
-
+    # set meta data
     class Meta:
         model = User
         fields = [
@@ -197,7 +196,7 @@ class RegisterForm(forms.ModelForm):
             'user_protected_name', 
         ]
 
-
+    # check data integrity
     def clean(self):
 
         cleaned_data = super().clean()
@@ -235,8 +234,6 @@ class RegisterForm(forms.ModelForm):
 
 # login form
 class LoginForm(forms.Form):
-
-
     user_id = forms.CharField(
         max_length=32,
         label='아이디',
