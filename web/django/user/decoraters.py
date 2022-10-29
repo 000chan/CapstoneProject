@@ -1,7 +1,7 @@
-
 from django.shortcuts import redirect
 from .models import User
 
+# login decorater
 def login_required(func):
     def wrapper(request, *args, **kwargs):
         login_session = request.session.get('login_session', '')
