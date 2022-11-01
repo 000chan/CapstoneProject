@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from user.decoraters import login_required
-import redis
 from django.core.cache import cache
 from user.models import User
+# from user.serializer import userSerializer
+# from .models import apData
+# from .serializer import apSerializer
 from datetime import datetime
+# import redis
 
 # servicePage home
 @login_required
@@ -70,6 +73,9 @@ def mypage(request):
         context['user_address'] = currentUser_address
         currentUser_protected_name = currentUser.user_protected_name
         context['user_protected_name'] = currentUser_protected_name
+
+        # currentUser_q = User.objects.all()
+        # currentUser_s = userSerializer
 
     return render(request, 'mypage.html', context)
 
