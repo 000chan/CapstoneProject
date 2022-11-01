@@ -7,6 +7,7 @@ cffi==1.15.1
 cryptography==38.0.1
 Deprecated==1.2.13
 Django==4.1.1
+django-cors-headers==3.13.0
 django-redis==5.2.0
 djangorestframework==3.14.0
 mysqlclient==2.1.1

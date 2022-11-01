@@ -13,7 +13,6 @@ DEBUG = True
 # Access all users
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -23,11 +22,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',                   # add drf
+    'corsheaders',                      # connect react django
     'backend_appHome',                  # add django app
     'backend_appService',               # add django app
     'backend_appUser',                  # add django app
 ]
 
+# CORS
+# CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000'
+#                          ,'http://localhost:3000']
+# CORS_ALLOW_CREDENTIALS = True
+
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -36,15 +42,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',            # django corsheaders
 ]
 
+# Root URLs
 ROOT_URLCONF = 'config.urls'
 
 # Templates routing
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'static/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'static/templates')],       # react 연결 시 FE 디렉토리로 경로 수정
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -57,8 +65,8 @@ TEMPLATES = [
     },
 ]
 
+# WSGI
 WSGI_APPLICATION = 'config.wsgi.application'
-
 
 # Database sqlite3
 # DATABASES = {
@@ -114,13 +122,11 @@ SESSION_SAVE_EVERY_REQUEST = True
 # Internationalization
 LANGUAGE_CODE = 'ko-kr'
 TIME_ZONE = 'Asia/Seoul'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+# Static files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
