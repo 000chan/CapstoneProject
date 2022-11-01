@@ -8,6 +8,6 @@ server {
     }
 
     location /static/ {
-        root /home/ychan/CapstoneProject/web/django;
+        root /home/ychan/CapstoneProject/web/was;
     }
 }
