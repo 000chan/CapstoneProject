@@ -14,6 +14,7 @@
 
 ## (GCP) 임시 클라우드 서버
 - 외부 고정 IP : 34.64.174.103
+- Domain Name : http://dkuakbs.com/home/
 
 ## 클라우드 환경
 - Ubuntu Linux 20.04 LTS
