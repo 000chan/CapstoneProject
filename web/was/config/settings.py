@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'capstone', #DB 이름
+        'NAME': 'AKBScapstone', #DB 이름
         'USER': 'root', # DB 계정
         'PASSWORD': 'DKUcap23!', # DB 계정 비밀번호
         'HOST': 'localhost', # DB IP 주소
