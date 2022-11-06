@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Target, MissingProtector, Device
+from .models import User, Device, Target
 
 # django admin page에 등록될 model들
 
@@ -18,29 +18,21 @@ class UserAdmin(admin.ModelAdmin):
     )
 
 @admin.register(Target)
-class TargetAdmin(Target):
+class TargetAdmin(admin.ModelAdmin):
     list_display = (
         'targetnum',
         'usernum',
         'targetname',
         'gender',
-        'image',    # null
+        'image',
         'birthdate',
         'targetage',
         'missingornot',
         'urgentnum'
     )
 
-@admin.register(MissingProtector)
-class MissingProtectorAdmin(MissingProtector):
-    list_display = (
-        'protectornum',
-        'protectorname',
-        'protectorphonenum'
-    )
-
 @admin.register(Device)
-class DeviceAdmin(Device):
+class DeviceAdmin(admin.ModelAdmin):
     list_display = (
         'devicename',
         'targetnum',

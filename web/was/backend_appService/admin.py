@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import MissingAnnouncement, MissingInfo, Pastpath, Search
+from .models import MissingAnnouncement, MissingInfo, MissingProtector, Pastpath, Search
 
 # django admin page에 등록될 model들
 
 @admin.register(MissingAnnouncement)
-class MissingAnnouncementAdmin(MissingAnnouncement):
+class MissingAnnouncementAdmin(admin.ModelAdmin):
     list_display = (
         'announcementnum',
         'missingname',
@@ -15,15 +15,23 @@ class MissingAnnouncementAdmin(MissingAnnouncement):
     )
 
 @admin.register(MissingInfo)
-class MissingInfoAdmin(MissingInfo):
+class MissingInfoAdmin(admin.ModelAdmin):
     list_display = (
         'infonum',
         'disappearancetime',
         'disappearancearea'
     )
 
+@admin.register(MissingProtector)
+class MissingProtectorAdmin(admin.ModelAdmin):
+    list_display = (
+        'protectornum',
+        'protectorname',
+        'protectorphonenum'
+    )
+
 @admin.register(Pastpath)
-class Pastpath(Pastpath):
+class Pastpath(admin.ModelAdmin):
     list_display = (
         'targetnum',
         'usernum',
@@ -34,7 +42,7 @@ class Pastpath(Pastpath):
     )
 
 @admin.register(Search)
-class Search(Search):
+class Search(admin.ModelAdmin):
     list_display = (
         'targetnum',
         'usernum'

@@ -1,5 +1,6 @@
 from tabnanny import verbose
 from django.db import models
+from backend_appUser.models import Device, Target
 
 # 실종자 정보
 class MissingAnnouncement(models.Model):
@@ -36,10 +37,27 @@ class MissingInfo(models.Model):
     def __str__(self):
         return self.infonum
 
+# 보호자 정보
+class MissingProtector(models.Model):
+    protectornum = models.SmallAutoField(db_column='ProtectorNum', primary_key=True)  # Field name made lowercase.
+    protectorname = models.CharField(db_column='ProtectorName', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    protectorphonenum = models.CharField(db_column='ProtectorPhoneNum', max_length=32, blank=True, null=True)  # Field name made lowercase.
+
+    # meta data
+    class Meta:
+        managed = False
+        db_table = 'Missing_Protector'
+        verbose_name = 'Missing_Protector'
+        verbose_name_plural = 'Missing_Protector'
+
+    # naming data
+    def __str__(self):
+        return self.protectornum
+
 # 실종자 이전 경로
 class Pastpath(models.Model):
-    targetnum = models.ForeignKey('Target', models.DO_NOTHING, db_column='TargetNum')  # Field name made lowercase.
-    usernum = models.ForeignKey('User', models.DO_NOTHING, db_column='UserNum')  # Field name made lowercase.
+    targetnum = models.ForeignKey('backend_appUser.Target', models.DO_NOTHING, db_column='TargetNum')  # Field name made lowercase.
+    usernum = models.ForeignKey('backend_appUser.User', models.DO_NOTHING, db_column='UserNum')  # Field name made lowercase.
     devicename = models.OneToOneField(Device, models.DO_NOTHING, db_column='DeviceName', primary_key=True)  # Field name made lowercase.
     signaledtime = models.DateTimeField(db_column='SignaledTime')  # Field name made lowercase.
     latitude = models.FloatField(db_column='Latitude', blank=True, null=True)  # Field name made lowercase.
@@ -58,8 +76,8 @@ class Pastpath(models.Model):
 
 # 검색 정보
 class Search(models.Model):
-    targetnum = models.OneToOneField('Target', models.DO_NOTHING, db_column='TargetNum', primary_key=True)  # Field name made lowercase.
-    usernum = models.ForeignKey('User', models.DO_NOTHING, db_column='UserNum')  # Field name made lowercase.
+    targetnum = models.OneToOneField('backend_appUser.Target', models.DO_NOTHING, db_column='TargetNum', primary_key=True)  # Field name made lowercase.
+    usernum = models.ForeignKey('backend_appUser.User', models.DO_NOTHING, db_column='UserNum')  # Field name made lowercase.
 
     class Meta:
         managed = False
