@@ -1,19 +1,48 @@
 from django.contrib import admin
-from .models import User
+from .models import User, Target, MissingProtector, Device
 
-# user model
+# django admin page에 등록될 model들
+
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = (
-        'user_id',
-        'user_pw',
-        'user_name',
-        'user_gender',
-        'user_resident_number',
-        'user_phone_number',
-        'user_emergency_number',
-        'user_email',
-        'user_address',
-        'user_register_dttm',
-        'user_protected_name',
+        'usernum',
+        'id',
+        'pass_field',
+        'username',
+        'userphonenum',
+        'e_mail',
+        'userage',
+        'commonusertype',
+        'adminusertype'
+    )
+
+@admin.register(Target)
+class TargetAdmin(Target):
+    list_display = (
+        'targetnum',
+        'usernum',
+        'targetname',
+        'gender',
+        'image',    # null
+        'birthdate',
+        'targetage',
+        'missingornot',
+        'urgentnum'
+    )
+
+@admin.register(MissingProtector)
+class MissingProtectorAdmin(MissingProtector):
+    list_display = (
+        'protectornum',
+        'protectorname',
+        'protectorphonenum'
+    )
+
+@admin.register(Device)
+class DeviceAdmin(Device):
+    list_display = (
+        'devicename',
+        'targetnum',
+        'usernum'
     )
