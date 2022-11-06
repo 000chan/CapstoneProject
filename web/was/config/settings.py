@@ -69,24 +69,24 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database sqlite3
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# Database mysql
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'AKBScapstone', #DB 이름
-        'USER': 'root', # DB 계정
-        'PASSWORD': 'DKUcap23!', # DB 계정 비밀번호
-        'HOST': 'localhost', # DB IP 주소
-        'PORT': '3306', # DB 포트번호
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Database mysql
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'AKBScapstone', #DB 이름
+#         'USER': 'root', # DB 계정
+#         'PASSWORD': 'DKUcap23!', # DB 계정 비밀번호
+#         'HOST': 'localhost', # DB IP 주소
+#         'PORT': '3306', # DB 포트번호
+#     }
+# }
 
 # Cache redis
 # CACHES = {
