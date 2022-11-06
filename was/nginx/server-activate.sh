@@ -3,4 +3,4 @@
 
 uwsgi --http 0.0.0.0:8000 --module config.wsgi &
 
-# cd /home/ychan/CapstoneProject/web/was/
+# this file needs to locate '/home/ychan/CapstoneProject/was/web/backend'
