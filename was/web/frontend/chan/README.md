@@ -8,7 +8,6 @@
 #### - port number : 80
 #### - port settings : "./webpack.dev.config.js"
 #### <br>
-#
 ## # DIRECTORY
 #### 1. assets : media files
 #### 2. components : common components (components used in multiple pages)
@@ -22,7 +21,6 @@
 #### 4. /src/components/AppRouter.js : AppRouter file
 #### 5. /src/components/index.js : call AppRedux and AppRouter
 #### <br>
-#
 ## # REDUX
 #### : 상태관리 라이브러리, Props Drilling 방지
 #### <br>
