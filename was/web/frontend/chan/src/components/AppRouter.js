@@ -44,7 +44,8 @@ const DynamicRoute = (props) => {
 				.then((module) => module.default)
 				.catch((e) => {
 					if (/not find module/.test(e.message)) {
-						return import("../pages" + "/missing").then((module) => module.default);
+						// http://localhost/
+						return import("../pages" + "/main").then((module) => module.default);
 					}
 					throw e;
 				}),

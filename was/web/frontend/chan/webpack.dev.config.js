@@ -27,6 +27,7 @@ module.exports = (env, options) => {
 
     devServer: {
       historyApiFallback: true,
+      // port
       port: 80,
       static: {
         directory: __dirname + '/public',
