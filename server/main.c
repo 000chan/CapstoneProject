@@ -7,6 +7,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <pthread.h>
+#include <mysql.h>
 #include "./hiredis-master/hiredis-master/hiredis.h"
 
 
