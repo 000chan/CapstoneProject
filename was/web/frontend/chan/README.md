@@ -37,4 +37,4 @@
 #### : 여러 개의 JAVASCRIPT 파일을 하나로 묶어줌, SPA에 유리, 성능 최적화
 #### <br>
 ## # 순서
-#### src/pages 디렉토리의 js 파일 > src/components/AppRouter.js > src/components/index.js > src/index.js > src/base_dev.html의 <div id="root"></div>
+#### src/pages 디렉토리의 js 파일 > src/components/AppRouter.js > src/components/index.js > src/index.js > base_dev.html의 <div id="root"></div>
