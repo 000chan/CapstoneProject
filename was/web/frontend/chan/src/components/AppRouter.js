@@ -40,12 +40,13 @@ const AsyncComponent = (props) => {
 const DynamicRoute = (props) => {
 	const getPage = useCallback(
 		(path) =>
-			import("../pages" + path)
+			// url 페이지 컴포넌트 라우팅
+			import("../pages" + path + path)
 				.then((module) => module.default)
 				.catch((e) => {
 					if (/not find module/.test(e.message)) {
-						// http://localhost/
-						return import("../pages" + "/main").then((module) => module.default);
+						// http://localhost/ 라우팅
+						return import("../pages/main" + "/main").then((module) => module.default);
 					}
 					throw e;
 				}),
