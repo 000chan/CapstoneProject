@@ -36,5 +36,9 @@
 ## # WEBPACK
 #### : 여러 개의 JAVASCRIPT 파일을 하나로 묶어줌, SPA에 유리, 성능 최적화
 #### <br>
-## # 순서
-#### src/pages 디렉토리의 js 파일 > src/components/AppRouter.js > src/components/index.js > src/index.js > base_dev.html의 <div id="root"></div>
+## # 흐름
+#### 1. src/pages 디렉토리 js 파일
+#### 2. src/components/AppRouter.js
+#### 3. src/components/index.js
+#### 4. src/index.js
+#### 5. base_dev.html의 <div id="root"></div>
