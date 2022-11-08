@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 
 const Map=()=>{
-
+    // 컴포넌트 렌더링 시, 특정 작업을 실행시키는 Hook
     useEffect(()=>{
         var container = document.getElementById('map');
         var options = {
