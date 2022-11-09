@@ -64,6 +64,7 @@ const About = () => {
                     <h3 style={contentStyle}>신재현</h3>
                 </div>
             </Carousel>
+            <h5 style={{textAlign:"center"}}>(마우스 올리면 멈춤)</h5>
         </>
     )
 }
