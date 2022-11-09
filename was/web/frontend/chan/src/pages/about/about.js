@@ -26,7 +26,7 @@ const About = () => {
     return (
         <>
             {/*상단 메뉴*/}
-            <Menu mode="horizontal" defaultSelectedKeys={['mail']}>
+            <Menu mode="horizontal" defaultSelectedKeys={['topMenu']}>
                 <Menu.Item key="menu" icon={<HomeOutlined/>}>
                     Home
                 </Menu.Item>

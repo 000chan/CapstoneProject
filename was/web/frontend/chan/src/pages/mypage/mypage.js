@@ -10,12 +10,13 @@ import {
 } from '@ant-design/icons';
 import {Menu, Switch} from 'antd';
 import 'antd/dist/antd.css';
+import {Link} from "react-router-dom";
 
 const Mypage = () => {
     return (
         <>
             {/*상단 메뉴*/}
-            <Menu mode="horizontal" defaultSelectedKeys={['mail']}>
+            <Menu mode="horizontal" defaultSelectedKeys={['topMenu']}>
                 <Menu.Item key="menu" icon={<HomeOutlined/>}>
                     Home
                 </Menu.Item>
