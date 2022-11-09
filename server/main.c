@@ -1,18 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <arpa/inet.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <pthread.h>
-#include <mysql.h>
-#include "./hiredis-master/hiredis-master/hiredis.h"
-
-
-#define CLIENT_MAX 100
-#define BUFFSIZE 1024
+#include "common.h"
+#include "mythread.h"
 
 
 
@@ -21,15 +8,8 @@ int g_client_count;
 pthread_mutex_t g_mutex;
 
 
-struct gps_data {
-	char id_num[64];
-	char longitude[64];
-	char latitude[64];
-	char macadr[64];
-};
 
-
-
+/*
 void* client_connection(void* arg) {
 
 	// redis part /////////////////////
@@ -67,7 +47,7 @@ void* client_connection(void* arg) {
 			}
 		printf("%s\n ", msg);
 
-		/*  msg = 식별번호  +  경도(180) +  위도 (90) + 맥주소 */
+		/*  msg = 식별번호  +  경도(180) +  위도 (90) + 맥주소 *
 
 		strcpy(Gps.id_num, strtok(msg," "));
 		strcpy(Gps.longitude, strtok(NULL," "));
@@ -77,7 +57,7 @@ void* client_connection(void* arg) {
 		/* msg data processing */
 
 
-		/* Redis Part */
+		/* Redis Part *
 		printf("hmset %s longitude %s latitude %s macadr %s", Gps.id_num, Gps.longitude, Gps.latitude, Gps.macadr);
 		reply = redisCommand(c,"hmset %s longitude %s latitude %s macadr %s",
 				     Gps.id_num,
@@ -108,7 +88,7 @@ void* client_connection(void* arg) {
 	return NULL;
 
 }
-
+//*/
 
 
 
@@ -119,29 +99,30 @@ int main(int argc, char** argv) {
 
 	/////////////////////////////
 
-	int server_sock;
+	int listen_sock;
 	int client_sock;
 
 	pthread_t t_thread;
 
 
 	struct sockaddr_in server_addr;
+	memset(&server_addr, 0, sizeof(server_addr));
+
 	struct sockaddr_in client_addr;
 	int client_addr_size;
 
 
 	pthread_mutex_init(&g_mutex, NULL);
-	server_sock = socket(PF_INET, SOCK_STREAM, 0);
 
+	listen_sock = socket(AF_INET, SOCK_STREAM, 0);
 
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-	server_addr.sin_port = htons(12000);
+	server_addr.sin_port = htons(SERVERPORT);
 
 
-
-	if (bind(server_sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) == -1) {
-		printf("bind error");
+	if (bind(listen_sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) == -1) {
+		err_quit("bind()");
 	}
 
 	/* fork() for Deamon  */
@@ -150,7 +131,7 @@ int main(int argc, char** argv) {
 		printf("Parent process id: %d \n", getpid());
 		exit(0);
 	}
-	else if (pid == 0){
+	else if (pid == 0) {
 		sleep(1);
 		printf("Childprocess pid: %d, ppid: %d\n",getpid(), getppid());
 		close(0);	close(1);	close(2);
@@ -158,14 +139,38 @@ int main(int argc, char** argv) {
 		printf("Deamon Process started");
 
 	}
-
 	//////////////////////////////
 
+	int retval;
 
-
-	if (listen(server_sock, 5) == -1) {
-		printf("listen error");
+	if (listen(listen_sock, SOMAXCONN) == -1) {
+		err_quit("listen()");
 	}
+
+		//* Nonblocking Socket
+	int flags = fcntl(listen_sock, F_GETFL);
+	flags |= 0_NONBLOCK;
+	fcntl(listen_sock, F_SETFL, flags);
+	//*/
+
+	// TCP SO_KEEPALIVE Option
+	int bEnable = 1;
+	if(setsockopt(listen_sock, SOL_SOCKET, SO_KEEPALIVE, &bEnable, sizeof(bEnable)) == SO_ERROR)
+		err_quit("setsockopt()");
+
+
+	// TCP SO_LINGER Option
+	struct linger optval;
+	optval.l_onoff = 0;
+	optval.l_linger = 0;
+	// Make TIME_WAIT 0
+	retval = setsockopt(listen_sock, SOL_SOCKET, SO_LINGER, &optval, sizeof(optval));
+	if(retval == SOCKET_ERROR)
+		err_quit("setsockopt()");
+
+
+
+
 
 
 	while (1) {
@@ -177,7 +182,6 @@ int main(int argc, char** argv) {
 		pthread_mutex_unlock(&g_mutex);
 
 		pthread_create(&t_thread, NULL, client_connection, (void*)client_sock);
-
 
 	}
 
