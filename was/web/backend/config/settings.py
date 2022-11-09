@@ -21,17 +21,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',                   # add drf
-    'corsheaders',                      # connect react django
-    'backend_appHome',                  # add django app
-    'backend_appService',               # add django app
-    'backend_appUser',                  # add django app
+
+    'rest_framework',                   # django rest framework
+    'corsheaders',                      # django corsheaders
+    
+    'backend_appHome',                  # django app
+    'backend_appService',               # django app
+    'backend_appUser',                  # django app
 ]
 
 # CORS
-# CORS_ORIGIN_WHITELIST = ['http://127.0.0.1:3000'
-#                          ,'http://localhost:3000']
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:3000',
+    'http://localhost:3000'
+]
+CORS_ALLOW_CREDENTIALS = True
 
 # Middleware
 MIDDLEWARE = [
@@ -42,7 +46,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware',            # django corsheaders
+
+    'corsheaders.middleware.CorsMiddleware',            # django corsheaders
+    'django.middleware.common.CommonMiddleWare',        # django corsheaders
 ]
 
 # Root URLs
