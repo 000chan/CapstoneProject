@@ -44,9 +44,13 @@ const DynamicRoute = (props) => {
 			import("../pages" + path + path)
 				.then((module) => module.default)
 				.catch((e) => {
-					if (/not find module/.test(e.message)) {
-						// pages에 해당 모듈 없는 경우, http://localhost/main로 리다이렉트
-						return import("../pages/main" + "/main").then((module) => module.default);
+					// "http://localhost/"인 경우 main 페이지로 redirect
+					if (path=="/") {
+						return import ("../pages/main" + "/main").then((module) => module.default);
+					}
+					// pages 해당 모듈 없는 경우 404 페이지로 redirect
+					else if (/not find module/.test(e.message)) {
+						return import("../pages/nonePage" + "/nonePage").then((module) => module.default);
 					}
 					throw e;
 				}),
