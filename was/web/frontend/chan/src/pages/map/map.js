@@ -126,7 +126,7 @@ const Map = () => {
                 <MapSideMenu></MapSideMenu>
             </div>
         </>
-    )
+    );
 }
 
 export default Map;
