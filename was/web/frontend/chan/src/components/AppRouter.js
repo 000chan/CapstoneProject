@@ -46,7 +46,7 @@ const DynamicRoute = (props) => {
 				.catch((e) => {
 					// "http://localhost/"인 경우 main 페이지로 redirect
 					if (path=="/") {
-						return import ("../pages/main" + "/main").then((module) => module.default);
+						return import ("../pages/home" + "/home").then((module) => module.default);
 					}
 					// pages 해당 모듈 없는 경우 404 페이지로 redirect
 					else if (/not find module/.test(e.message)) {
