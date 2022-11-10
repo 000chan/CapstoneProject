@@ -39,6 +39,7 @@ const AsyncComponent = (props) => {
 
 const DynamicRoute = (props) => {
 	const getPage = useCallback(
+		// http://localhost/user/login > path=/user/login
 		(path) =>
 			// url 페이지 컴포넌트 라우팅
 			import("../pages" + path + path)

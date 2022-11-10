@@ -1,3 +1,5 @@
+// 404 Page
+
 import React from 'react';
 // import antd
 import { Button, Result } from 'antd';
