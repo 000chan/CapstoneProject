@@ -48,7 +48,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'corsheaders.middleware.CorsMiddleware',            # django corsheaders
-    'django.middleware.common.CommonMiddleWare',        # django corsheaders
 ]
 
 # Root URLs
