@@ -42,7 +42,7 @@ const DynamicRoute = (props) => {
 		// http://localhost/user/login > path=/user/login
 		(path) =>
 			// url 페이지 컴포넌트 라우팅
-			import("../pages" + path + path)
+			import("../pages" + ( path.split("/")[2] != undefined ? (path) : (path+path) ))
 				.then((module) => module.default)
 				.catch((e) => {
 					// "http://localhost/"인 경우 main 페이지로 redirect
