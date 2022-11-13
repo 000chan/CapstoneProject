@@ -8,7 +8,7 @@
 #include <netinet/in.h>
 #include <semaphore.h>
 #include <pthread.h>
-//#include <mysql.h>
+#include <mysql.h>
 
 #define SERVERPORT      12000
 #define CLIENT_MAX      100

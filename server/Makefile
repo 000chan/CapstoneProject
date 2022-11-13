@@ -7,7 +7,9 @@ SRC_DIR = hiredis main
 OBJ_DIR = obj
 
 #CFALGS
-LDFLAGS = -pthread -lpcap
+LDFLAGS = -pthread -lmysqlclient
+
+
 
 
 
