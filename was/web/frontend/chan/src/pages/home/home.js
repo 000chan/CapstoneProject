@@ -5,7 +5,7 @@ const Main = () => {
 	<>
 		Main
 	</>
-  )
+  );
 }
 
-export default Main
+export default Main;

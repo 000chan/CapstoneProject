@@ -69,7 +69,7 @@ void* client_connection(void* arg) {
 		printf("-------------------------------------------------------\n\n");
 
 
-		}
+	}
 
 	pthread_mutex_lock(&g_mutex);
 	for (i = 0; i < g_client_count; i++) {

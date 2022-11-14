@@ -73,7 +73,7 @@ const Login = () => {
                 </Button>
             </Form.Item>
         </Form>
-    )
+    );
 }
 
-export default Login
+export default Login;

@@ -39,14 +39,15 @@ const AsyncComponent = (props) => {
 
 const DynamicRoute = (props) => {
 	const getPage = useCallback(
+		// http://localhost/user/login > path=/user/login
 		(path) =>
 			// url 페이지 컴포넌트 라우팅
-			import("../pages" + path + path)
+			import("../pages" + "/" + path.split('/')[path.split('/').length - 1] + "/" + path.split('/')[path.split('/').length - 1])
 				.then((module) => module.default)
 				.catch((e) => {
 					// "http://localhost/"인 경우 main 페이지로 redirect
 					if (path=="/") {
-						return import ("../pages/main" + "/main").then((module) => module.default);
+						return import ("../pages/home" + "/home").then((module) => module.default);
 					}
 					// pages 해당 모듈 없는 경우 404 페이지로 redirect
 					else if (/not find module/.test(e.message)) {
