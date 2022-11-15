@@ -1,10 +1,13 @@
 /*global kakao*/
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import {
-    AppstoreOutlined, BarsOutlined, CompassOutlined, HomeOutlined, MailOutlined, SettingOutlined, SolutionOutlined, ToolOutlined, TeamOutlined
+    AppstoreOutlined,
+    MailOutlined,
+    SettingOutlined,
 } from '@ant-design/icons';
-import { Menu, Switch } from 'antd';
+import {Menu, Switch} from 'antd';
 import 'antd/dist/antd.css';
+import {TopMenu} from '../../components/common';
 
 function makeMap(containerId, position) {
     var container = document.getElementById(containerId);
@@ -14,33 +17,6 @@ function makeMap(containerId, position) {
     };
     var map = new kakao.maps.Map(container, options);
     return map;
-}
-
-function TopMenu() {
-    return (
-        <Menu mode="horizontal" defaultSelectedKeys={['topMenu']}>
-            <Menu.Item key="menu" icon={<HomeOutlined />}>
-                Home
-            </Menu.Item>
-            <Menu.SubMenu key="SubMenu" title="About" icon={<SolutionOutlined />}>
-                <Menu.Item key="three" icon={<BarsOutlined />}>
-                    Introduce
-                </Menu.Item>
-                <Menu.Item key="two" icon={<TeamOutlined />}>
-                    Members
-                </Menu.Item>
-                <Menu.Item key="four" icon={<ToolOutlined />}>
-                    Tech Stack
-                </Menu.Item>
-            </Menu.SubMenu>
-            <Menu.Item key="menu2" icon={<CompassOutlined />}>
-                Map
-            </Menu.Item>
-            <Menu.Item key="menu3" icon={<SettingOutlined />}>
-                Mypage
-            </Menu.Item>
-        </Menu>
-    );
 }
 
 function getItem(label, key, icon, children, type) {
@@ -55,18 +31,18 @@ function getItem(label, key, icon, children, type) {
 
 function MapSideMenu() {
     const items = [
-        getItem('메뉴 1', 'sub1', <MailOutlined />, [
+        getItem('메뉴 1', 'sub1', <MailOutlined/>, [
             getItem('소메뉴 1', '1'),
             getItem('소메뉴 2', '2'),
             getItem('소메뉴 3', '3'),
             getItem('소메뉴 4', '4'),
         ]),
-        getItem('메뉴 2', 'sub2', <AppstoreOutlined />, [
+        getItem('메뉴 2', 'sub2', <AppstoreOutlined/>, [
             getItem('소메뉴 5', '5'),
             getItem('소메뉴 6', '6'),
             getItem('서브메뉴', 'sub3', null, [getItem('Option 7', '7'), getItem('Option 8', '8')]),
         ]),
-        getItem('메뉴 3', 'sub4', <SettingOutlined />, [
+        getItem('메뉴 3', 'sub4', <SettingOutlined/>, [
             getItem('소메뉴 9', '9'),
             getItem('소메뉴 10', '10'),
             getItem('소메뉴 11', '11'),
@@ -93,14 +69,14 @@ function MapSideMenu() {
                     zIndex: 2
                 }}
             />
-            <br /><br />
+            <br/><br/>
             <Menu
                 theme={theme}
                 onClick={onClick}
                 style={{
                     width: 256,
                     position: "relative",
-                    zIndex: 2
+                    zIndex: 2,
                 }}
                 defaultOpenKeys={['sub1']}
                 selectedKeys={[current]}
@@ -122,7 +98,8 @@ const Map = () => {
     return (
         <>
             <TopMenu></TopMenu>
-            <div id="map" style={{ width: "500px", height: "400px" }}>
+            <br/>
+            <div id="map" style={{width: "90%", height: "90%"}}>
                 <MapSideMenu></MapSideMenu>
             </div>
         </>

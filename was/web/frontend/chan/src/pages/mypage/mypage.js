@@ -1,46 +1,40 @@
-import React, {useState} from 'react'
-import {
-    BarsOutlined,
-    CompassOutlined,
-    HomeOutlined,
-    SettingOutlined,
-    SolutionOutlined,
-    ToolOutlined,
-    TeamOutlined
-} from '@ant-design/icons';
-import {Menu, Switch} from 'antd';
+import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { Avatar, Card } from 'antd';
+import React from 'react';
 import 'antd/dist/antd.css';
-import {Link} from "react-router-dom";
+import {TopMenu} from '../../components/common';
+
+const { Meta } = Card;
 
 const Mypage = () => {
     return (
         <>
-            {/*상단 메뉴*/}
-            <Menu mode="horizontal" defaultSelectedKeys={['topMenu']}>
-                <Menu.Item key="menu" icon={<HomeOutlined/>}>
-                    Home
-                </Menu.Item>
-                <Menu.SubMenu key="SubMenu" title="About" icon={<SolutionOutlined/>}>
-                    <Menu.Item key="three" icon={<BarsOutlined/>}>
-                        Introduce
-                    </Menu.Item>
-                    <Menu.Item key="two" icon={<TeamOutlined/>}>
-                        Members
-                    </Menu.Item>
-                    <Menu.Item key="four" icon={<ToolOutlined/>}>
-                        Tech Stack
-                    </Menu.Item>
-                </Menu.SubMenu>
-                <Menu.Item key="menu2" icon={<CompassOutlined/>}>
-                    Map
-                </Menu.Item>
-                <Menu.Item key="menu3" icon={<SettingOutlined/>}>
-                    Mypage
-                </Menu.Item>
-            </Menu>
+            <TopMenu></TopMenu>
             <h1>MyPage</h1>
+            <Card
+                style={{
+                    width: 300,
+                }}
+                cover={
+                    <img
+                        alt="example"
+                        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                    />
+                }
+                actions={[
+                    <SettingOutlined key="setting" />,
+                    <EditOutlined key="edit" />,
+                    <EllipsisOutlined key="ellipsis" />,
+                ]}
+            >
+                <Meta
+                    avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                    title="Card title"
+                    description="This is the description"
+                />
+            </Card>
         </>
     );
 }
 
-export default Mypage
+export default Mypage;

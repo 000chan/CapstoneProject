@@ -12,6 +12,8 @@ import {
     TeamOutlined
 } from '@ant-design/icons';
 import 'antd/dist/antd.css';
+import 'antd/dist/antd.css';
+import {TopMenu} from '../../components/common'
 
 // carousel 설정
 const contentStyle = {
@@ -25,29 +27,7 @@ const contentStyle = {
 const About = () => {
     return (
         <>
-            {/*상단 메뉴*/}
-            <Menu mode="horizontal" defaultSelectedKeys={['topMenu']}>
-                <Menu.Item key="menu" icon={<HomeOutlined/>}>
-                    Home
-                </Menu.Item>
-                <Menu.SubMenu key="SubMenu" title="About" icon={<SolutionOutlined/>}>
-                    <Menu.Item key="three" icon={<BarsOutlined/>}>
-                        Introduce
-                    </Menu.Item>
-                    <Menu.Item key="two" icon={<TeamOutlined/>}>
-                        Members
-                    </Menu.Item>
-                    <Menu.Item key="four" icon={<ToolOutlined/>}>
-                        Tech Stack
-                    </Menu.Item>
-                </Menu.SubMenu>
-                <Menu.Item key="menu2" icon={<CompassOutlined/>}>
-                    Map
-                </Menu.Item>
-                <Menu.Item key="menu3" icon={<SettingOutlined/>}>
-                    Mypage
-                </Menu.Item>
-            </Menu>
+            <TopMenu></TopMenu>
             <h1>AboutPage</h1>
             {/*  본문  */}
             <Carousel autoplay>

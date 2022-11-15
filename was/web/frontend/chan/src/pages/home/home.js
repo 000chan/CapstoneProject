@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import 'antd/dist/antd.css';
+import {TopMenu} from '../../components/common'
 
 const Main = () => {
   return (
 	<>
-		Main
+		<TopMenu></TopMenu>
+		<h1>Main</h1>
 	</>
   );
 }
