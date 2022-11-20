@@ -9,34 +9,45 @@ import {
     SettingOutlined,
     SolutionOutlined,
     TeamOutlined,
-    ToolOutlined
+    ToolOutlined,
+    KeyOutlined,
+    IdcardOutlined,
+    RocketOutlined,
 } from "@ant-design/icons";
+import 'antd/dist/antd.css';
 
 // 공통 컴포넌트
 
 function TopMenu() {
     return (
         <Menu mode="horizontal" defaultSelectedKeys={['topMenu']}>
-            {/* <Menu.Item key="menu"/> */}
-            <Menu.Item key="menu" icon={<HomeOutlined/>} style={{width:150, textAlign:"center"}} onClick={()=>{window.location.replace("/home")}}>
-                Home
+            <Menu.Item key="menu1" icon={<HomeOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.replace("/home")}}>
+                홈
             </Menu.Item>
-            <Menu.SubMenu key="SubMenu" title="About" icon={<SolutionOutlined/>} style={{width:150, textAlign:"center"}}>
-                <Menu.Item key="three" icon={<BarsOutlined/>} onClick={()=>{window.location.replace("/service/about")}}>
-                    Introduce
+            <Menu.SubMenu key="SubMenu1" title="시작하기" icon={<RocketOutlined/>} style={{width:200, textAlign:"center"}}>
+                <Menu.Item key="sub1-1" icon={<KeyOutlined/>} onClick={()=>{window.location.replace("/user/login")}}>
+                    로그인
                 </Menu.Item>
-                <Menu.Item key="two" icon={<TeamOutlined/>} onClick={()=>{window.location.replace("/service/about")}}>
-                    Members
-                </Menu.Item>
-                <Menu.Item key="four" icon={<ToolOutlined/>} onClick={()=>{window.location.replace("/service/about")}}>
-                    Tech Stack
+                <Menu.Item key="sub1-2" icon={<IdcardOutlined/>} onClick={()=>{window.location.replace("/user/register")}}>
+                    회원가입
                 </Menu.Item>
             </Menu.SubMenu>
-            <Menu.Item key="menu2" icon={<CompassOutlined/>} style={{width:150, textAlign:"center"}} onClick={()=>{window.location.replace("/service/map")}}>
-                Map
+            <Menu.SubMenu key="SubMenu2" title="소개" icon={<SolutionOutlined/>} style={{width:200, textAlign:"center"}}>
+                <Menu.Item key="sub2-1" icon={<BarsOutlined/>} onClick={()=>{window.location.replace("/service/about")}}>
+                    서비스
+                </Menu.Item>
+                <Menu.Item key="sub2-2" icon={<TeamOutlined/>} onClick={()=>{window.location.replace("/service/about")}}>
+                    멤버
+                </Menu.Item>
+                <Menu.Item key="sub2-3" icon={<ToolOutlined/>} onClick={()=>{window.location.replace("/service/about")}}>
+                    기술
+                </Menu.Item>
+            </Menu.SubMenu>
+            <Menu.Item key="menu2" icon={<CompassOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.replace("/service/map")}}>
+                지도 서비스
             </Menu.Item>
-            <Menu.Item key="menu3" icon={<SettingOutlined/>} style={{width:150, textAlign:"center"}} onClick={()=>{window.location.replace("/service/mypage")}}>
-                Mypage
+            <Menu.Item key="menu3" icon={<SettingOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.replace("/service/mypage")}}>
+                마이페이지
             </Menu.Item>
         </Menu>
     );

@@ -1,9 +1,9 @@
 import React from 'react'
-import {Button, Checkbox, Form, Input} from 'antd';
+import {Button, Form, Input} from 'antd';
 import 'antd/dist/antd.css';
 import {TopMenu} from '../../components/common';
 
-const Login = () => {
+function LoginForm() {
     const onFinish = (values) => {
         console.log('Success:', values);
     };
@@ -12,22 +12,21 @@ const Login = () => {
     };
     return (
         <>
-            <TopMenu></TopMenu>
-            <br/><br/>
             <Form
                 name="basic"
+                size="large"
                 labelCol={{
-                    span: 4,
+                    span: 8,
                 }}
                 wrapperCol={{
                     span: 8,
                 }}
-                initialValues={{
-                    remember: true,
-                }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
+                style={{
+                    margin: "5% 0 0 0"
+                }}
             >
                 <Form.Item
                     label="Username"
@@ -56,20 +55,9 @@ const Login = () => {
                 </Form.Item>
 
                 <Form.Item
-                    name="remember"
-                    valuePropName="checked"
                     wrapperCol={{
-                        offset: 3,
-                        span: 16,
-                    }}
-                >
-                    <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-
-                <Form.Item
-                    wrapperCol={{
-                        offset: 7,
-                        span: 16,
+                        offset: 11,
+                        span: 11,
                     }}
                 >
                     <Button type="primary" htmlType="submit">
@@ -77,6 +65,17 @@ const Login = () => {
                     </Button>
                 </Form.Item>
             </Form>
+        </>
+    );
+}
+
+const Login = () => {
+
+    return (
+        <>
+            <TopMenu/>
+            <h1 style={{textAlign:"center", margin:"10% 0 0 0"}}>로그인</h1>
+            <LoginForm/>
         </>
     );
 }
