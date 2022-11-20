@@ -51,28 +51,28 @@ def maps(request):
 
         return render(request, 'maps.html', context)
 
-# servicePage maps
-def mypage(request):
-    if request.method == 'GET':
-        context = {}
+# servicePage mypage
+# def mypage(request):
+#     if request.method == 'GET':
+#         context = {}
 
-        # get and send user_id
-        context['login_session'] = request.session['login_session']
+#         # get and send user_id
+#         context['login_session'] = request.session['login_session']
 
-        currentUser = User.objects.get(user_id=context['login_session'])
+#         currentUser = User.objects.get(user_id=context['login_session'])
 
-        currentUser_name = currentUser.user_name
-        context['user_name'] = currentUser_name
-        currentUser_phone_number = currentUser.user_phone_number
-        context['user_phone_number'] = currentUser_phone_number
-        currentUser_emergency_number = currentUser.user_emergency_number
-        context['user_emergency_number'] = currentUser_emergency_number
-        currentUser_email = currentUser.user_email
-        context['user_email'] = currentUser_email
-        currentUser_address = currentUser.user_address
-        context['user_address'] = currentUser_address
-        currentUser_protected_name = currentUser.user_protected_name
-        context['user_protected_name'] = currentUser_protected_name
+#         currentUser_name = currentUser.user_name
+#         context['user_name'] = currentUser_name
+#         currentUser_phone_number = currentUser.user_phone_number
+#         context['user_phone_number'] = currentUser_phone_number
+#         currentUser_emergency_number = currentUser.user_emergency_number
+#         context['user_emergency_number'] = currentUser_emergency_number
+#         currentUser_email = currentUser.user_email
+#         context['user_email'] = currentUser_email
+#         currentUser_address = currentUser.user_address
+#         context['user_address'] = currentUser_address
+#         currentUser_protected_name = currentUser.user_protected_name
+#         context['user_protected_name'] = currentUser_protected_name
 
         # currentUser_q = User.objects.all()
         # currentUser_s = userSerializer
@@ -90,3 +90,19 @@ def hoon(request):
 # servicePage project
 def project(request):
     return render(request, 'project.html')
+
+
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+# react test
+class Test(APIView):
+    def get(self, request):
+        data = "hi it's mypage from django"
+        return Response(data)
+
+class Map(APIView):
+    def get(self, request):
+        data = "hi it's map from django"
+        return Response(data)

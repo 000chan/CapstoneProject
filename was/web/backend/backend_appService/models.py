@@ -1,6 +1,6 @@
 from tabnanny import verbose
 from django.db import models
-from backend_appUser.models import Device, Target
+from backend_appUser.models import Device
 
 # 실종자 정보
 class MissingAnnouncement(models.Model):
