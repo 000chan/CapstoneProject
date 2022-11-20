@@ -1,19 +1,7 @@
 import React from 'react'
-// import antd
-import {Menu, Carousel} from 'antd';
-import {
-    AppstoreOutlined,
-    SettingOutlined,
-    CompassOutlined,
-    SolutionOutlined,
-    HomeOutlined,
-    BarsOutlined,
-    ToolOutlined,
-    TeamOutlined
-} from '@ant-design/icons';
+import { Carousel } from 'antd';
 import 'antd/dist/antd.css';
-import 'antd/dist/antd.css';
-import {TopMenu} from '../../components/common'
+import { TopMenu } from '../../components/common'
 
 // carousel 설정
 const contentStyle = {

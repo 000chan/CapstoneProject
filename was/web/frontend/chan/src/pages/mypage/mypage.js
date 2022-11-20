@@ -2,7 +2,8 @@ import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/ico
 import { Avatar, Card } from 'antd';
 import React from 'react';
 import 'antd/dist/antd.css';
-import {TopMenu} from '../../components/common';
+import { TopMenu } from '../../components/common';
+import axios from "axios";
 
 const { Meta } = Card;
 
@@ -33,6 +34,20 @@ const Mypage = () => {
                     description="This is the description"
                 />
             </Card>
+            <button
+                onClick={() => {
+                    axios
+                        .get("http://127.0.0.1:8000/service/mypage/")   // url 마지막에 "/" 생략 시, 301 error 발생하니 유의
+                        .then((response) => {
+                            console.log(response.data);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }}
+            >
+                GET
+            </button>
         </>
     );
 }

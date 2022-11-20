@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Menu, Switch } from "antd";
+import { Menu } from "antd";
 import {
     AppstoreOutlined,
     BarsOutlined,
@@ -17,30 +17,30 @@ import {
 function TopMenu() {
     return (
         <Menu mode="horizontal" defaultSelectedKeys={['topMenu']}>
-            <Menu.Item key="menu" icon={<HomeOutlined/>}>
+            {/* <Menu.Item key="menu"/> */}
+            <Menu.Item key="menu" icon={<HomeOutlined/>} style={{width:150, textAlign:"center"}} onClick={()=>{window.location.replace("/home")}}>
                 Home
             </Menu.Item>
-            <Menu.SubMenu key="SubMenu" title="About" icon={<SolutionOutlined/>}>
-                <Menu.Item key="three" icon={<BarsOutlined/>}>
+            <Menu.SubMenu key="SubMenu" title="About" icon={<SolutionOutlined/>} style={{width:150, textAlign:"center"}}>
+                <Menu.Item key="three" icon={<BarsOutlined/>} onClick={()=>{window.location.replace("/about")}}>
                     Introduce
                 </Menu.Item>
-                <Menu.Item key="two" icon={<TeamOutlined/>}>
+                <Menu.Item key="two" icon={<TeamOutlined/>} onClick={()=>{window.location.replace("/about")}}>
                     Members
                 </Menu.Item>
-                <Menu.Item key="four" icon={<ToolOutlined/>}>
+                <Menu.Item key="four" icon={<ToolOutlined/>} onClick={()=>{window.location.replace("/about")}}>
                     Tech Stack
                 </Menu.Item>
             </Menu.SubMenu>
-            <Menu.Item key="menu2" icon={<CompassOutlined/>}>
+            <Menu.Item key="menu2" icon={<CompassOutlined/>} style={{width:150, textAlign:"center"}} onClick={()=>{window.location.replace("/service/map")}}>
                 Map
             </Menu.Item>
-            <Menu.Item key="menu3" icon={<SettingOutlined/>}>
+            <Menu.Item key="menu3" icon={<SettingOutlined/>} style={{width:150, textAlign:"center"}} onClick={()=>{window.location.replace("/service/mypage")}}>
                 Mypage
             </Menu.Item>
         </Menu>
     );
 }
-
 
 function getItem(label, key, icon, children, type) {
     return {
@@ -72,32 +72,19 @@ function MapSideMenu() {
             getItem('소메뉴 12', '12'),
         ]),
     ];
-    const [theme, setTheme] = useState('dark');
     const [current, setCurrent] = useState('1');
-    // const changeTheme = (value) => {
-    //     setTheme(value ? 'dark' : 'light');
-    // };
     const onClick = (e) => {
         console.log('click ', e);
         setCurrent(e.key);
     };
     return (
         <>
-            {/* <Switch
-                checked={theme === 'dark'}
-                onChange={changeTheme}
-                checkedChildren="Dark"
-                unCheckedChildren="Light"
-                style={{
-                    zIndex: 2
-                }}
-            /> */}
-            <br/><br/>
+        <br/>
             <Menu
-                theme={theme}
+                theme="dark"
                 onClick={onClick}
                 style={{
-                    width: 256,
+                    width: 180,
                     position: "relative",
                     zIndex: 2,
                 }}
