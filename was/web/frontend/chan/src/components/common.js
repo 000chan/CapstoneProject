@@ -22,13 +22,13 @@ function TopMenu() {
                 Home
             </Menu.Item>
             <Menu.SubMenu key="SubMenu" title="About" icon={<SolutionOutlined/>} style={{width:150, textAlign:"center"}}>
-                <Menu.Item key="three" icon={<BarsOutlined/>} onClick={()=>{window.location.replace("/about")}}>
+                <Menu.Item key="three" icon={<BarsOutlined/>} onClick={()=>{window.location.replace("/service/about")}}>
                     Introduce
                 </Menu.Item>
-                <Menu.Item key="two" icon={<TeamOutlined/>} onClick={()=>{window.location.replace("/about")}}>
+                <Menu.Item key="two" icon={<TeamOutlined/>} onClick={()=>{window.location.replace("/service/about")}}>
                     Members
                 </Menu.Item>
-                <Menu.Item key="four" icon={<ToolOutlined/>} onClick={()=>{window.location.replace("/about")}}>
+                <Menu.Item key="four" icon={<ToolOutlined/>} onClick={()=>{window.location.replace("/service/about")}}>
                     Tech Stack
                 </Menu.Item>
             </Menu.SubMenu>

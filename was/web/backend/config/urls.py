@@ -5,8 +5,7 @@ from django.views.generic import RedirectView
 # http://127.0.0.1:8000/
 urlpatterns = [
     # homePage
-    path('', include('backend_appHome.urls')),
-    path('/', include('backend_appHome.urls')),
+    path('', RedirectView.as_view(url='/home/', permanent=True)),
     path('home/', include('backend_appHome.urls')),
 
     # loginPage
