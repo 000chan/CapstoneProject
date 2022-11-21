@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import User, Device, Target
+from .models import User, Device, Target, testLogin
+
+admin.site.register(testLogin)
 
 # django admin page에 등록될 model들
 

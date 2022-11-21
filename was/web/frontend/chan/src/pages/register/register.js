@@ -11,11 +11,13 @@ import { TopMenu } from '../../components/common';
 
 
 function RegisterForm() {
+    // [상태] 개인정보 수집 동의 버튼
     const [acceptTerms, setAcceptTerms] = useState(false);
     const buttonChange = ({ disabled }) => {
         setAcceptTerms(disabled);
     };
 
+    // registerForm input value 검사
     const onFinish = (values) => {
         console.log('Success:', values);
     };
@@ -41,32 +43,80 @@ function RegisterForm() {
                 }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
+                autoComplete="off"
             >
-                <Form.Item label="아이디" rules={[{required:true, message:"hi"}]}>
-                    <Input placeholder="아이디"/>
+                <Form.Item
+                    label="아이디"
+                    name="id"
+                    rules={[
+                        {required:true, message:"아이디를 입력해주세요"}
+                    ]}
+                >
+                    <Input placeholder=""/>
                 </Form.Item>
 
-                <Form.Item label="비밀번호">
-                    <Input placeholder="비밀번호"/>
+                <Form.Item
+                    label="비밀번호"
+                    name="password"
+                    rules={[
+                        {required:true, message:"비밀번호를 입력해주세요"}
+                    ]}
+                >
+                    <Input placeholder=""/>
                 </Form.Item>
 
-                <Form.Item label="이름">
-                    <Input placeholder="이름"/>
+                <Form.Item
+                    label="비밀번호 확인"
+                    name="password-check"
+                    rules={[
+                        {required:true, message:"동일한 비밀번호를 입력해주세요"}
+                    ]}
+                >
+                    <Input placeholder="동일한 비밀번호를 입력해주세요"/>
                 </Form.Item>
 
-                <Form.Item label="핸드폰 번호">
-                    <Input placeholder="핸드폰 번호"/>
+                <Form.Item
+                    label="이름"
+                    name="name"
+                    rules={[
+                        {required:true, message:"이름을 입력해주세요"}
+                    ]}
+                >
+                    <Input placeholder=""/>
                 </Form.Item>
 
-                <Form.Item label="생년월일">
-                    <DatePicker placeholder="생년월일" style={{width:"100%"}}/>
+                <Form.Item
+                    label="핸드폰 번호"
+                    name="phonenumber"
+                    rules={[
+                        {required:true, message:"핸드폰 번호를 입력해주세요"}
+                    ]}
+                >
+                    <Input placeholder=""/>
                 </Form.Item>
 
-                <Form.Item label="이메일">
-                    <Input placeholder="이메일"/>
+                <Form.Item
+                    label="생년월일"
+                    name="birthdate"
+                    rules={[
+                        {required:true, message:"생년월일을 입력해주세요"}
+                    ]}>
+                    <DatePicker placeholder="" style={{width:"100%"}}/>
                 </Form.Item>
 
-                <Form.Item label="null" style={{textAlign:"center"}}>
+                <Form.Item
+                    label="이메일"
+                    name="email"
+                    rules={[
+                        {required:true, message:"이메일을 입력해주세요"}
+                    ]}>
+                    <Input placeholder=""/>
+                </Form.Item>
+
+                <Form.Item
+                    label="null"
+                    name="checkTerms"
+                    style={{textAlign:"center"}}>
                     <Checkbox
                         checked={acceptTerms}
                         onChange={(e) => setAcceptTerms(e.target.checked)}
@@ -75,7 +125,10 @@ function RegisterForm() {
                     </Checkbox>
                 </Form.Item>
 
-                <Form.Item label="null" style={{textAlign:"center"}}>
+                <Form.Item
+                    label="null"
+                    name="register"
+                    style={{textAlign:"center"}}>
                     <Button
                         onValuesChange={buttonChange}
                         disabled={!acceptTerms}

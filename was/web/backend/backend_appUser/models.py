@@ -65,3 +65,7 @@ class Device(models.Model):
     # naming data
     def __str__(self):
         return self.devicename
+
+class testLogin(models.Model):
+    testid = models.CharField(max_length=50)
+    testpw = models.CharField(max_length=50)

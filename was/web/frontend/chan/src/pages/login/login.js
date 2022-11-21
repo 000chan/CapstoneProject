@@ -2,14 +2,20 @@ import React from 'react'
 import {Button, Form, Input} from 'antd';
 import 'antd/dist/antd.css';
 import {TopMenu} from '../../components/common';
+import axios from "axios";
 
 function LoginForm() {
+    // loginForm input value 검사
     const onFinish = (values) => {
         console.log('Success:', values);
+        console.log(typeof(values));
+        axios.post("http://127.0.0.1:8000/user/login/", values).then(function(response){console.log(response);}).catch(function(error){console.log(error);})
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
+        console.log(typeof(values));
     };
+
     return (
         <>
             <Form
@@ -29,12 +35,12 @@ function LoginForm() {
                 }}
             >
                 <Form.Item
-                    label="Username"
-                    name="username"
+                    label="아이디"
+                    name="id"
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your username!',
+                            message: '아이디를 입력해주세요',
                         },
                     ]}
                 >
@@ -42,12 +48,12 @@ function LoginForm() {
                 </Form.Item>
 
                 <Form.Item
-                    label="Password"
+                    label="비밀번호"
                     name="password"
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your password!',
+                            message: '비밀번호를 입력해주세요',
                         },
                     ]}
                 >

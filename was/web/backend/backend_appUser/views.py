@@ -58,3 +58,22 @@ def login(request):
 def logout(request):
     request.session.flush()
     return redirect('/')
+
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.http import Http404
+from .serializer import TestSerializer
+from .models import testLogin
+
+class testLogin(APIView):
+    def get(self, request):
+        logindata = testLogin.objects.all()
+        serializer = TestSerializer(logindata, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = TestSerializer(data=request.data)
+        print(request.data)
+
+        return Response(request.data)
