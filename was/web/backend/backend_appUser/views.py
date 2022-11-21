@@ -59,12 +59,14 @@ def logout(request):
     request.session.flush()
     return redirect('/')
 
+
+################################################################################################################################################
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
-from .serializer import TestSerializer
-from .models import testLogin
+from .serializer import TestSerializer, TestRegisterSerializer
+from .models import testLogin, testRegister
 
 class testLogin(APIView):
     def get(self, request):
@@ -76,20 +78,56 @@ class testLogin(APIView):
         serializer = TestSerializer(data=request.data)
         print(request.data)
         if serializer.is_valid():
+            print('===============================================================================================')
             print('success')
 
             # serializer.data
+            print("-----[1. serializer.data]-----")
             print(serializer.data)
             print(type(serializer.data))
 
             # request.data
+            print("-----[2. request.data]-----")
             print(request.data)
             print(type(request.data))
 
             # request
+            print("-----[3. request]-----")
             print(request)
             print(type(request))
+            print('===============================================================================================')
             return Response(request.data)
+        print('fail')
+        return Response(request.data)
 
+class testRegister(APIView):
+    def get(self, request):
+        registerdata = testRegister.objects.all()
+        serializer = TestRegisterSerializer(registerdata, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = TestRegisterSerializer(data=request.data)
+        print(request.data)
+        if serializer.is_valid():
+            print('===============================================================================================')
+            print('success')
+
+            # serializer.data
+            print("-----[1. serializer.data]-----")
+            print(serializer.data)
+            print(type(serializer.data))
+
+            # request.data
+            print("-----[2. request.data]-----")
+            print(request.data)
+            print(type(request.data))
+
+            # request
+            print("-----[3. request]-----")
+            print(request)
+            print(type(request))
+            print('===============================================================================================')
+            return Response(request.data)
         print('fail')
         return Response(request.data)

@@ -8,6 +8,7 @@ import {
 } from 'antd';
 import 'antd/dist/antd.css';
 import { TopMenu } from '../../components/common';
+import axios from "axios";
 
 
 function RegisterForm() {
@@ -20,6 +21,7 @@ function RegisterForm() {
     // registerForm input value 검사
     const onFinish = (values) => {
         console.log('Success:', values);
+        axios.post("http://127.0.0.1:8000/user/register/", values).then(function(response){console.log(response);}).catch(function(error){console.log(error);})
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -47,7 +49,7 @@ function RegisterForm() {
             >
                 <Form.Item
                     label="아이디"
-                    name="id"
+                    name="registerid"
                     rules={[
                         {required:true, message:"아이디를 입력해주세요"}
                     ]}
@@ -57,7 +59,7 @@ function RegisterForm() {
 
                 <Form.Item
                     label="비밀번호"
-                    name="password"
+                    name="registerpw"
                     rules={[
                         {required:true, message:"비밀번호를 입력해주세요"}
                     ]}
@@ -67,7 +69,7 @@ function RegisterForm() {
 
                 <Form.Item
                     label="비밀번호 확인"
-                    name="password-check"
+                    name="registerpwconfirm"
                     rules={[
                         {required:true, message:"동일한 비밀번호를 입력해주세요"}
                     ]}
@@ -77,7 +79,7 @@ function RegisterForm() {
 
                 <Form.Item
                     label="이름"
-                    name="name"
+                    name="registername"
                     rules={[
                         {required:true, message:"이름을 입력해주세요"}
                     ]}
@@ -87,7 +89,7 @@ function RegisterForm() {
 
                 <Form.Item
                     label="핸드폰 번호"
-                    name="phonenumber"
+                    name="registerphonenumber"
                     rules={[
                         {required:true, message:"핸드폰 번호를 입력해주세요"}
                     ]}
@@ -97,7 +99,7 @@ function RegisterForm() {
 
                 <Form.Item
                     label="생년월일"
-                    name="birthdate"
+                    name="registerbirthdate"
                     rules={[
                         {required:true, message:"생년월일을 입력해주세요"}
                     ]}>
@@ -106,7 +108,7 @@ function RegisterForm() {
 
                 <Form.Item
                     label="이메일"
-                    name="email"
+                    name="registeremail"
                     rules={[
                         {required:true, message:"이메일을 입력해주세요"}
                     ]}>
