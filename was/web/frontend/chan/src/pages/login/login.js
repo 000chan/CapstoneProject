@@ -36,7 +36,7 @@ function LoginForm() {
             >
                 <Form.Item
                     label="아이디"
-                    name="id"
+                    name="testid"
                     rules={[
                         {
                             required: true,
@@ -49,7 +49,7 @@ function LoginForm() {
 
                 <Form.Item
                     label="비밀번호"
-                    name="password"
+                    name="testpw"
                     rules={[
                         {
                             required: true,

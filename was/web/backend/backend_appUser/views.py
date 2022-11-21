@@ -75,5 +75,21 @@ class testLogin(APIView):
     def post(self, request):
         serializer = TestSerializer(data=request.data)
         print(request.data)
+        if serializer.is_valid():
+            print('success')
 
+            # serializer.data
+            print(serializer.data)
+            print(type(serializer.data))
+
+            # request.data
+            print(request.data)
+            print(type(request.data))
+
+            # request
+            print(request)
+            print(type(request))
+            return Response(request.data)
+
+        print('fail')
         return Response(request.data)
