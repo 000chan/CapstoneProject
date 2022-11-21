@@ -36,10 +36,10 @@ function TopMenu() {
                 <Menu.Item key="sub2-1" icon={<BarsOutlined/>} onClick={()=>{window.location.replace("/service/about")}}>
                     서비스
                 </Menu.Item>
-                <Menu.Item key="sub2-2" icon={<TeamOutlined/>} onClick={()=>{window.location.replace("/service/about")}}>
+                <Menu.Item key="sub2-2" icon={<TeamOutlined/>} onClick={()=>{window.location.replace("/service/project/about")}}>
                     멤버
                 </Menu.Item>
-                <Menu.Item key="sub2-3" icon={<ToolOutlined/>} onClick={()=>{window.location.replace("/service/about")}}>
+                <Menu.Item key="sub2-3" icon={<ToolOutlined/>} onClick={()=>{window.location.replace("/service/tech/about")}}>
                     기술
                 </Menu.Item>
             </Menu.SubMenu>
