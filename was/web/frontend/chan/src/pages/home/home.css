@@ -27,3 +27,7 @@ body {
     text-shadow: 3px 3px 6px gray;
     color: #f1f1f1;
 }
+
+.footer {
+    text-align: center;
+}

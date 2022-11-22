@@ -5,6 +5,15 @@ import './home.css'
 import image from '../../../../../static/images/home_background.jpg'
 
 
+const Footer = () => {
+    return (
+        <p className="footer" style={ FooterStyle }>Copyright &copy; Elderly <br></br>
+        김영찬  |  백수연  |  신재현  |  안영훈
+        </p>
+        
+    )
+}
+
 const Main = () => {
   return (
 	<>
@@ -23,6 +32,7 @@ const Main = () => {
                 </Link>
             </div>
          </header> */}
+         <Footer></Footer>
 	</>
   );
 }
@@ -35,5 +45,23 @@ const Main = () => {
 //     backgroundRepeat: "no-repeat",
 //     backgroundSize: "cover"
 // }
+
+// const Footer = () => {
+//     return (
+//         <p className="footer text-center" style={ FooterStyle }>Copyright &copy;</p>
+//     )
+// }
+
+const FooterStyle = {
+    background: "#222",
+    fontSize: ".8rem",
+    color: "#fff",
+    position: "absolute",
+    bottom: 0,
+    padding: ".8rem",
+    margin: 0,
+    width: "100%",
+    opacity: ".5"
+}
 
 export default Main;
