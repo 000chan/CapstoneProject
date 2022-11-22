@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif
+}
+
+body {
+    margin: 0 auto;
+}
+
+.main-content {
+    width: 100%;
+    height: 93.5vh;
+    align-content: center;
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.main-title {
+    padding-top: 16rem;
+    font-size: 3.5rem;
+    text-align: center;
+    font-family: sans-serif, cursive;
+    font-weight: 600;
+    text-shadow: 3px 3px 6px gray;
+    color: #f1f1f1;
+}
