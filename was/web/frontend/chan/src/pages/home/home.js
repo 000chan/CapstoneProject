@@ -2,7 +2,7 @@ import React from 'react';
 // import 'antd/dist/antd.css';
 import {TopMenu} from '../../components/common'
 import './home.css'
-import image from '../../../../../static/images/home_background.jpg'
+import image from '../../assets/images/home_background.jpg'
 
 
 
