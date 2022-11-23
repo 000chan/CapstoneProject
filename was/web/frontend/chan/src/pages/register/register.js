@@ -54,7 +54,7 @@ function RegisterForm() {
                         {required:true, message:"아이디를 입력해주세요"}
                     ]}
                 >
-                    <Input placeholder=""/>
+                    <Input placeholder="아이디를 입력해주세요"/>
                 </Form.Item>
 
                 <Form.Item
@@ -64,7 +64,7 @@ function RegisterForm() {
                         {required:true, message:"비밀번호를 입력해주세요"}
                     ]}
                 >
-                    <Input placeholder=""/>
+                    <Input placeholder="비밀번호를 입력해주세요"/>
                 </Form.Item>
 
                 <Form.Item
@@ -84,7 +84,7 @@ function RegisterForm() {
                         {required:true, message:"이름을 입력해주세요"}
                     ]}
                 >
-                    <Input placeholder=""/>
+                    <Input placeholder="이름을 입력해주세요"/>
                 </Form.Item>
 
                 <Form.Item
@@ -94,7 +94,7 @@ function RegisterForm() {
                         {required:true, message:"핸드폰 번호를 입력해주세요"}
                     ]}
                 >
-                    <Input placeholder=""/>
+                    <Input placeholder="핸드폰 번호를 입력해주세요"/>
                 </Form.Item>
 
                 <Form.Item
@@ -103,7 +103,7 @@ function RegisterForm() {
                     rules={[
                         {required:true, message:"생년월일을 입력해주세요"}
                     ]}>
-                    <DatePicker placeholder="" style={{width:"100%"}}/>
+                    <DatePicker placeholder="생년월일을 입력해주세요" style={{width:"100%"}}/>
                 </Form.Item>
 
                 <Form.Item
@@ -112,12 +112,13 @@ function RegisterForm() {
                     rules={[
                         {required:true, message:"이메일을 입력해주세요"}
                     ]}>
-                    <Input placeholder=""/>
+                    <Input placeholder="이메일을 입력해주세요"/>
                 </Form.Item>
 
                 <Form.Item
-                    label="null"
+                    // label="null"
                     name="checkTerms"
+                     align="center"
                     style={{textAlign:"center"}}>
                     <Checkbox
                         checked={acceptTerms}
@@ -128,8 +129,9 @@ function RegisterForm() {
                 </Form.Item>
 
                 <Form.Item
-                    label="null"
+                    // label="null"
                     name="register"
+                    align="center"
                     style={{textAlign:"center"}}>
                     <Button
                         onValuesChange={buttonChange}
