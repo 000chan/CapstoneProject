@@ -9,6 +9,7 @@ import {
 import 'antd/dist/antd.css';
 import { TopMenu } from '../../components/common';
 import axios from "axios";
+import './register.css'
 
 
 function RegisterForm() {
@@ -116,10 +117,10 @@ function RegisterForm() {
                 </Form.Item>
 
                 <Form.Item
-                    // label="null"
+                   label=""  
                     name="checkTerms"
                      align="center"
-                    style={{textAlign:"center"}}>
+                     style={{textAlign:"center", }}>
                     <Checkbox
                         checked={acceptTerms}
                         onChange={(e) => setAcceptTerms(e.target.checked)}
@@ -129,7 +130,7 @@ function RegisterForm() {
                 </Form.Item>
 
                 <Form.Item
-                    // label="null"
+                    label=""
                     name="register"
                     align="center"
                     style={{textAlign:"center"}}>
