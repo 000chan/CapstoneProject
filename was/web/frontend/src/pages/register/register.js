@@ -6,7 +6,6 @@ import {
     DatePicker,
     Checkbox,
 } from 'antd';
-import 'antd/dist/antd.css';
 import { TopMenu } from '../../components/common';
 import axios from "axios";
 import './register.css'

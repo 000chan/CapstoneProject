@@ -3,7 +3,6 @@
 import React from 'react';
 // import antd
 import { Button, Result } from 'antd';
-import 'antd/dist/antd.css';
 
 const nonePage = () => (
     <Result

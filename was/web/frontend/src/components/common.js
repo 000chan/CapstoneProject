@@ -14,7 +14,6 @@ import {
     IdcardOutlined,
     RocketOutlined,
 } from "@ant-design/icons";
-import 'antd/dist/antd.css';
 
 // 공통 컴포넌트
 
@@ -36,10 +35,10 @@ function TopMenu() {
                 <Menu.Item key="sub2-1" icon={<BarsOutlined/>} onClick={()=>{window.location.replace("/service/about")}}>
                     서비스
                 </Menu.Item>
-                <Menu.Item key="sub2-2" icon={<TeamOutlined/>} onClick={()=>{window.location.replace("/service/project/about")}}>
+                <Menu.Item key="sub2-2" icon={<TeamOutlined/>} onClick={()=>{window.location.replace("/service/project")}}>
                     멤버
                 </Menu.Item>
-                <Menu.Item key="sub2-3" icon={<ToolOutlined/>} onClick={()=>{window.location.replace("/service/tech/about")}}>
+                <Menu.Item key="sub2-3" icon={<ToolOutlined/>} onClick={()=>{window.location.replace("/service/tech")}}>
                     기술
                 </Menu.Item>
             </Menu.SubMenu>

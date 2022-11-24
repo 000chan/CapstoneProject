@@ -1,6 +1,5 @@
 /*global kakao*/
 import React, { useEffect } from 'react'
-import 'antd/dist/antd.css';
 import { TopMenu, MapSideMenu } from '../../components/common';
 import axios from "axios";
 
