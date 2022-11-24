@@ -1,3 +1,0 @@
-# react 페이지 완료되면 디렉토리 전체 삭제될 예정
-
-# static methods는 "/frontend/src/assets" 에서 관리
