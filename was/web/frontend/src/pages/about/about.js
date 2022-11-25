@@ -61,7 +61,6 @@ const About = () => {
 const cardIcon = {
     height: "100px",
     marginBottom: "40px",
-    pointer: "cursor",
     padding: "10px"
 };
 
