@@ -32,7 +32,8 @@ body {
 
 .service-content-card {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 20px 80px;
 }
 
 .service-content-card-fast {
@@ -40,6 +41,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px 5px;
 }
 
 .service-content-card-easy {
@@ -47,6 +49,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px 5px;
 }
 
 .service-content-card-accurate {
@@ -54,6 +57,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 20px 5px;
 }
 
 h2 {

@@ -54,20 +54,15 @@ const About = () => {
                     <h3>보다 높은 정확성을 목표로 합니다</h3></div>
                     </div>
                 </div>
-
-       
-
         </>
-
-
     )
 }
 
 const cardIcon = {
-    height: "200px",
+    height: "100px",
     marginBottom: "40px",
-    pointer: "cursor"
-    
+    pointer: "cursor",
+    padding: "10px"
 };
 
 export default About
