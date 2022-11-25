@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif
+}
+
+html, body{
+    width: 100%;
+    background-color: #fff;
+}
+
+body {
+    margin: 0 auto;
+}
+
+.member-content-title {
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin: 90px 0px 60px;
+}
+
+.member-content {
+    display: flex;
+    justify-content: center;
+}
+
+.member-card {
+    text-align: center;
+    padding: 60px;
+}
+
+.member-card h2 {
+    display: block;
+    margin-bottom: 5px;
+
+}
+
+.member-card span {
+    display: block;
+    color: #5b5b5b;
+    margin-bottom: 8px;
+}
+
