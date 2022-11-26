@@ -44,12 +44,20 @@ function TopMenu() {
                         기술
                     </Menu.Item>
                 </Menu.SubMenu>
-                <Menu.Item key="menu2" icon={<CompassOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.replace("/service/map")}}>
-                    지도 서비스
-                </Menu.Item>
-                <Menu.Item key="menu3" icon={<SettingOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.replace("/service/mypage")}}>
-                    마이페이지
-                </Menu.Item>
+                {
+                    localStorage.getItem("user") ?
+                        <Menu.Item key="menu2" icon={<CompassOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.href="/service/map"}}>
+                        지도 서비스
+                        </Menu.Item>
+                        : null
+                }
+                {
+                    localStorage.getItem("user") ?
+                        <Menu.Item key="menu3" icon={<SettingOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.href="/service/mypage"}}>
+                        마이페이지
+                        </Menu.Item>
+                        : null
+                }
                 {
                     localStorage.getItem("user") ?
                         <Menu.Item key="menu4" icon={<UnlockOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.replace("/"); localStorage.removeItem("user")}}>
