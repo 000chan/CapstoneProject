@@ -23,8 +23,12 @@ function RegisterForm() {
         console.log('Success:', values);
         axios
         .post("http://127.0.0.1:8000/user/register/", values)
-        .then(function(response){console.log(response);})
-        .catch(function(response){console.log(response);})
+        .then(function(response){
+            window.location.replace("/user/login");
+        })
+        .catch(function(response){
+            console.log(response);
+        })
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);

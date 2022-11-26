@@ -13,7 +13,7 @@ function LoginForm() {
         .then(function(response){
             console.log(response);
             if(response.status==200){
-                location.replace("/"); 
+                window.location.replace("/");
                 localStorage.setItem("user", response.data)
             }
         })
@@ -21,7 +21,7 @@ function LoginForm() {
             console.log(error);
         })
     };
-    
+
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
         console.log(typeof(values));
