@@ -1,25 +1,35 @@
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializer import TestSerializer, UserSerializer
-from .models import testLogin, User
+from .serializer import UserSerializer
+from .models import User
 import datetime
+from argon2 import PasswordHasher
 
-class testLogin(APIView):
-    def get(self, request):
-        logindata = testLogin.objects.all()
-        serializer = TestSerializer(logindata, many=True)
-        return Response(serializer.data)
-
+class Login(APIView):
     def post(self, request):
-        serializer = TestSerializer(data=request.data)
-        print(request.data)
-        if serializer.is_valid():
-            print(serializer.data)
-            print(type(serializer.data))
-            return Response(request.data)
-        print('fail')
-        return Response(request.data)
+        id = request.data["id"]
+        password = request.data["pass_field"]
+
+        if User.objects.get(id=id):
+            user = User.objects.get(id=id)
+        else:
+            print("===ERROR: 아이디 데이터가 올바르지 않습니다.===")
+            return Response(
+                { "message" : "아이디가 존재하지 않습니다." },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if PasswordHasher().verify(user.pass_field, password=password):
+            print("===login success===")
+            return Response(user.id, status=status.HTTP_200_OK)
+        else:
+            print("===ERROR: 비밀번호 데이터가 올바르지 않습니다.===")
+
+        return Response(
+            { "message" : "입력된 비밀번호가 올바르지 않습니다. 다시 입력해주세요" },
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
 class Register(APIView):
     def post(self, request):
@@ -48,6 +58,9 @@ class Register(APIView):
                 )
             else:
                 request.data["userage"] = str(userage)
+
+        # pass_field 데이터 암호화
+        request.data["pass_field"] = PasswordHasher().hash(request.data["pass_field"])
 
         # serializer 지정 
         serializer = UserSerializer(data=request.data)

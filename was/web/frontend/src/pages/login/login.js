@@ -8,8 +8,20 @@ function LoginForm() {
     const onFinish = (values) => {
         console.log('Success:', values);
         console.log(typeof(values));
-        axios.post("http://127.0.0.1:8000/user/login/", values).then(function(response){console.log(response);}).catch(function(error){console.log(error);})
+        axios
+        .post("http://127.0.0.1:8000/user/login/", values)
+        .then(function(response){
+            console.log(response);
+            if(response.status==200){
+                location.replace("/"); 
+                localStorage.setItem("user", response.data)
+            }
+        })
+        .catch(function(error){
+            console.log(error);
+        })
     };
+    
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
         console.log(typeof(values));
@@ -35,7 +47,7 @@ function LoginForm() {
             >
                 <Form.Item
                     label="아이디"
-                    name="testid"
+                    name="id"
                     rules={[
                         {
                             required: true,
@@ -48,7 +60,7 @@ function LoginForm() {
 
                 <Form.Item
                     label="비밀번호"
-                    name="testpw"
+                    name="pass_field"
                     rules={[
                         {
                             required: true,
