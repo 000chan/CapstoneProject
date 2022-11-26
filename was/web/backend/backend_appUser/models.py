@@ -5,17 +5,17 @@ from django.db import models
 class User(models.Model):
     usernum = models.SmallAutoField(db_column='UserNum', primary_key=True)
     id = models.CharField(db_column='ID', unique=True, max_length=128, blank=True, null=True)
-    pass_field = models.CharField(db_column='PASS', max_length=128, blank=True, null=True)
-    username = models.CharField(db_column='UserName', max_length=32, blank=True, null=True)
-    userphonenum = models.CharField(db_column='UserPhoneNUM', max_length=32, blank=True, null=True)
+    pass_field = models.CharField(db_column='PASS', unique=False, max_length=128, blank=True, null=True)
+    username = models.CharField(db_column='UserName', unique=False, max_length=32, blank=True, null=True)
+    userphonenum = models.CharField(db_column='UserPhoneNUM', unique=True, max_length=32, blank=True, null=True)
     e_mail = models.CharField(db_column='E_Mail', unique=True, max_length=256, blank=True, null=True)
-    userage = models.IntegerField(db_column='UserAge', blank=True, null=True)
+    userage = models.IntegerField(db_column='UserAge', unique=False, blank=True, null=True)
     commonusertype = models.IntegerField(db_column='CommonUserType', blank=True, null=True)
     adminusertype = models.IntegerField(db_column='AdminUserType', blank=True, null=True)
 
     # meta data
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'User'
         verbose_name = 'User'
         verbose_name_plural = 'User'
@@ -38,7 +38,7 @@ class Target(models.Model):
 
     # meta data
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'Target'
         unique_together = (('targetnum', 'usernum'),)
         verbose_name = 'Target'
@@ -56,7 +56,7 @@ class Device(models.Model):
 
     # meta data
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'Device'
         unique_together = (('devicename', 'targetnum', 'usernum'),)
         verbose_name = 'Device'
@@ -69,12 +69,3 @@ class Device(models.Model):
 class testLogin(models.Model):
     testid = models.CharField(max_length=50)
     testpw = models.CharField(max_length=50)
-
-class testRegister(models.Model):
-    registerid = models.CharField(max_length=50)
-    registerpw = models.CharField(max_length=50)
-    registerpwconfirm = models.CharField(max_length=50)
-    registername = models.CharField(max_length=50)
-    registerphonenumber = models.CharField(max_length=50)
-    registerbirthdate = models.CharField(max_length=50)
-    registeremail = models.CharField(max_length=50)

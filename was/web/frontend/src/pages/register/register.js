@@ -21,7 +21,10 @@ function RegisterForm() {
     // registerForm input value 검사
     const onFinish = (values) => {
         console.log('Success:', values);
-        axios.post("http://127.0.0.1:8000/user/register/", values).then(function(response){console.log(response);}).catch(function(error){console.log(error);})
+        axios
+        .post("http://127.0.0.1:8000/user/register/", values)
+        .then(function(response){console.log(response);})
+        .catch(function(response){console.log(response);})
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -61,7 +64,7 @@ function RegisterForm() {
                     label="비밀번호"
                     name="pass_field"
                     rules={[
-                        {required:true, message:"비밀번호를 입력해주세요"}
+                        {required:true, message:"8자리 이상의 비밀번호를 입력해주세요", min:8}
                     ]}
                 >
                     <Input placeholder="비밀번호를 입력해주세요"/>

@@ -1,15 +1,10 @@
 from rest_framework.serializers import ModelSerializer
-from .models import User, Target, Device, testLogin, testRegister
+from .models import User, Target, Device, testLogin
 
 class TestSerializer(ModelSerializer):
     class Meta:
         model = testLogin
         fields = ('testid', 'testpw')
-
-class TestRegisterSerializer(ModelSerializer):
-    class Meta:
-        model = testRegister
-        fields = ('registerid', 'registerpw', 'registerpwconfirm', 'registername', 'registerphonenumber', 'registerbirthdate', 'registeremail')
 
 # apData 직렬화 (query set > json)
 
