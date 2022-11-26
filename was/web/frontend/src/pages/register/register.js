@@ -67,7 +67,7 @@ function RegisterForm() {
                         {required:true, message:"8자리 이상의 비밀번호를 입력해주세요", min:8}
                     ]}
                 >
-                    <Input placeholder="비밀번호를 입력해주세요"/>
+                    <Input.Password placeholder="비밀번호를 입력해주세요"/>
                 </Form.Item>
 
                 <Form.Item
@@ -77,7 +77,7 @@ function RegisterForm() {
                         {required:true, message:"동일한 비밀번호를 입력해주세요"}
                     ]}
                 >
-                    <Input placeholder="동일한 비밀번호를 입력해주세요"/>
+                    <Input.Password placeholder="비밀번호를 입력해주세요"/>
                 </Form.Item>
 
                 <Form.Item
