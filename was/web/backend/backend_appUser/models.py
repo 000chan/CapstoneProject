@@ -3,15 +3,15 @@ from django.db import models
 
 # 유저 정보
 class User(models.Model):
-    usernum = models.SmallAutoField(db_column='UserNum', primary_key=True)  # Field name made lowercase.
-    id = models.CharField(db_column='ID', unique=True, max_length=128, blank=True, null=True)  # Field name made lowercase.
-    pass_field = models.CharField(db_column='PASS', max_length=128, blank=True, null=True)  # Field name made lowercase. Field renamed because it was a Python reserved word.
-    username = models.CharField(db_column='UserName', max_length=32, blank=True, null=True)  # Field name made lowercase.
-    userphonenum = models.CharField(db_column='UserPhoneNUM', max_length=32, blank=True, null=True)  # Field name made lowercase.
-    e_mail = models.CharField(db_column='E_Mail', unique=True, max_length=256, blank=True, null=True)  # Field name made lowercase.
-    userage = models.IntegerField(db_column='UserAge', blank=True, null=True)  # Field name made lowercase.
-    commonusertype = models.IntegerField(db_column='CommonUserType', blank=True, null=True)  # Field name made lowercase.
-    adminusertype = models.IntegerField(db_column='AdminUserType', blank=True, null=True)  # Field name made lowercase.
+    usernum = models.SmallAutoField(db_column='UserNum', primary_key=True)
+    id = models.CharField(db_column='ID', unique=True, max_length=128, blank=True, null=True)
+    pass_field = models.CharField(db_column='PASS', max_length=128, blank=True, null=True)
+    username = models.CharField(db_column='UserName', max_length=32, blank=True, null=True)
+    userphonenum = models.CharField(db_column='UserPhoneNUM', max_length=32, blank=True, null=True)
+    e_mail = models.CharField(db_column='E_Mail', unique=True, max_length=256, blank=True, null=True)
+    userage = models.IntegerField(db_column='UserAge', blank=True, null=True)
+    commonusertype = models.IntegerField(db_column='CommonUserType', blank=True, null=True)
+    adminusertype = models.IntegerField(db_column='AdminUserType', blank=True, null=True)
 
     # meta data
     class Meta:
@@ -69,3 +69,12 @@ class Device(models.Model):
 class testLogin(models.Model):
     testid = models.CharField(max_length=50)
     testpw = models.CharField(max_length=50)
+
+class testRegister(models.Model):
+    registerid = models.CharField(max_length=50)
+    registerpw = models.CharField(max_length=50)
+    registerpwconfirm = models.CharField(max_length=50)
+    registername = models.CharField(max_length=50)
+    registerphonenumber = models.CharField(max_length=50)
+    registerbirthdate = models.CharField(max_length=50)
+    registeremail = models.CharField(max_length=50)

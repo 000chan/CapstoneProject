@@ -49,7 +49,7 @@ function RegisterForm() {
             >
                 <Form.Item
                     label="아이디"
-                    name="registerid"
+                    name="id"
                     rules={[
                         {required:true, message:"아이디를 입력해주세요"}
                     ]}
@@ -59,7 +59,7 @@ function RegisterForm() {
 
                 <Form.Item
                     label="비밀번호"
-                    name="registerpw"
+                    name="pass_field"
                     rules={[
                         {required:true, message:"비밀번호를 입력해주세요"}
                     ]}
@@ -69,7 +69,7 @@ function RegisterForm() {
 
                 <Form.Item
                     label="비밀번호 확인"
-                    name="registerpwconfirm"
+                    name="pass_field_check"
                     rules={[
                         {required:true, message:"동일한 비밀번호를 입력해주세요"}
                     ]}
@@ -79,7 +79,7 @@ function RegisterForm() {
 
                 <Form.Item
                     label="이름"
-                    name="registername"
+                    name="username"
                     rules={[
                         {required:true, message:"이름을 입력해주세요"}
                     ]}
@@ -89,7 +89,7 @@ function RegisterForm() {
 
                 <Form.Item
                     label="핸드폰 번호"
-                    name="registerphonenumber"
+                    name="userphonenum"
                     rules={[
                         {required:true, message:"핸드폰 번호를 입력해주세요"}
                     ]}
@@ -99,7 +99,7 @@ function RegisterForm() {
 
                 <Form.Item
                     label="생년월일"
-                    name="registerbirthdate"
+                    name="birthdate"
                     rules={[
                         {required:true, message:"생년월일을 입력해주세요"}
                     ]}>
@@ -108,7 +108,7 @@ function RegisterForm() {
 
                 <Form.Item
                     label="이메일"
-                    name="registeremail"
+                    name="e_mail"
                     rules={[
                         {required:true, message:"이메일을 입력해주세요"}
                     ]}>

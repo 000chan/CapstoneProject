@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from backend_appUser.decoraters import login_required
 from django.core.cache import cache
 from backend_appUser.models import User
 # from user.serializer import userSerializer
@@ -9,7 +8,6 @@ from datetime import datetime
 # import redis
 
 # servicePage home
-@login_required
 def home(request):
     context={}
     context['login_session'] = request.session['login_session']

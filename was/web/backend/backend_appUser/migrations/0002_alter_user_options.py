@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('backend_appUser', '0002_alter_user_options'),
+        ('backend_appUser', '0001_initial'),
     ]
 
     operations = [
-        migrations.AlterModelTable(
+        migrations.AlterModelOptions(
             name='user',
-            table=None,
+            options={},
         ),
     ]
