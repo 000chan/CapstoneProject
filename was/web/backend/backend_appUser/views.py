@@ -17,7 +17,6 @@ class Login(APIView):
         # request data와 일치하는 회원정보가 있는지 검사
         try:
             user = User.objects.get(id=id)
-            ("===SUCCESS: 일치하는 아이디를 찾았습니다!===")
         except:
             print("===ERROR: 아이디 데이터가 올바르지 않습니다.===")
             return Response(
@@ -50,6 +49,7 @@ class Login(APIView):
         #     return Response(user.id, status=status.HTTP_200_OK)
         # else:
         #     print("===ERROR: 비밀번호 데이터가 올바르지 않습니다.===")
+        
 
 class Register(APIView):
     def post(self, request):
@@ -78,7 +78,6 @@ class Register(APIView):
                 )
             else:
                 request.data["userage"] = str(userage)
-                print('===SUCCEESS: userage 계산에 성공했습니다!===')
 
         # pass_field 데이터 암호화
         request.data["pass_field"] = PasswordHasher().hash(request.data["pass_field"])
@@ -108,3 +107,48 @@ class Register(APIView):
 
         print("===ERROR: 회원가입에 실패했습니다.===")
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
+
+class Mypage(APIView):
+    def get(self, request):
+        # react로 전송할 json 객체
+        resData = {}
+
+        # request data로 해당 user model 불러오기
+        user_id = request.query_params.get("data")
+        userModel = User.objects.get(id=user_id)
+        
+        # user model에 해당하는 target model 불러오기
+        key = userModel.usernum
+        if Target.objects.get(usernum=key):
+            targetModel = Target.objects.get(usernum=key)
+        else:
+            print("==ERROR: 해당하는 target 데이터가 없습니다.===")
+
+        try:
+            resData["user"] = []
+            resData["user"].append({
+                "id" : userModel.id,
+                "username" : userModel.username,
+                "userphonenum" : userModel.userphonenum,
+                "e_mail" : userModel.e_mail,
+                "userage" : userModel.userage,
+            })
+        except:
+            print("===ERROR: User 모델을 불러오는데 실패했습니다.===")
+
+        try:
+            resData["target"] = []
+            resData["target"].append({
+                "targetname" : targetModel.targetname,
+                "gender" : targetModel.gender,
+                "birthdate" : targetModel.birthdate,
+                "targetage" : targetModel.targetage,
+                "missingornot" : targetModel.missingornot,
+                "urgentnum" : targetModel.urgentnum,
+            })
+        except:
+            print("===ERROR: Target 모델을 불러오는데 실패했습니다.===")
+
+        print(resData)
+
+        return Response(resData, status=status.HTTP_200_OK)
