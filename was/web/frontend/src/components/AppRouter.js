@@ -51,7 +51,7 @@ const DynamicRoute = (props) => {
 					}
 					// pages 해당 모듈 없는 경우 404 페이지로 redirect
 					else if (/not find module/.test(e.message)) {
-						return import("../pages/nonePage" + "/nonePage").then((module) => module.default);
+						return import("../pages/nonepage" + "/nonepage").then((module) => module.default);
 					}
 					throw e;
 				}),

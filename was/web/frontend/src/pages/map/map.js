@@ -36,7 +36,7 @@ const Map = () => {
     return (
         <>
             <TopMenu/>
-            <div id="map" style={{ width: "500px", height: "300px" }}/>
+            <div id="map" style={{ width: "100%", height: "400px", margin: "10px 0 0 0" }}/>
             <br/>
             <div style={{display: "flex"}}>
                 <MapSideMenu/>

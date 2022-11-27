@@ -53,20 +53,27 @@ function TopMenu() {
                         <Menu.Item key="menu2" icon={<CompassOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.href="/service/map"}}>
                         지도 서비스
                         </Menu.Item>
-                        : null
+                        :
+                        <Menu.Item key="menu2" icon={<CompassOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.href="/noneaccess"}}>
+                        지도 서비스
+                        </Menu.Item>
                 }
                 {
                     localStorage.getItem("user") ?
-                        <Menu.Item key="menu3" icon={<SettingOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.href="/service/mypage"}}>
+                        <Menu.Item key="menu3" icon={<SettingOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.href="/user/mypage"}}>
                         마이페이지
                         </Menu.Item>
                         : null
                 }
                 {
                     localStorage.getItem("user") ?
-                        <Menu.Item key="menu4" icon={<UnlockOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.replace("/"); localStorage.removeItem("user")}}>
-                        로그아웃
-                        </Menu.Item>
+                        <>
+                            <Menu.Item style={{width:200, visibility:"hidden"}}/>
+                            <Menu.Item style={{width:200, visibility:"hidden"}}/>
+                            <Menu.Item key="menu4" icon={<UnlockOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.replace("/"); localStorage.removeItem("user")}}>
+                            로그아웃
+                            </Menu.Item>
+                        </>
                         : null
                 }
             </Menu>
