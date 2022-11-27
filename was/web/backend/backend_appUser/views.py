@@ -5,8 +5,6 @@ from .serializer import UserSerializer
 from .models import User, Target
 import datetime
 from argon2 import PasswordHasher
-import json
-from django.core import serializers
 
 class Login(APIView):
     def post(self, request):
@@ -58,6 +56,13 @@ class Register(APIView):
             print("===ERROR: 'pass_field' 데이터와 'pass_field_check' 데이터가 일치하지 않습니다.===")
             return Response(
                 { "message" : "비밀번호가 일치하지 않습니다. 동일한 비밀번호를 입력해주세요." },
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        # 핸드폰 번호 유효성 체크
+        elif len(request.data["userphonenum"]) != 11:
+            print("===ERROR: 'userphonenum' 데이터가 올바르지 않습니다.===")
+            return Response(
+                { "message" : "핸드폰 번호가 올바르지 않습니다. 다시 입력해주세요." },
                 status=status.HTTP_400_BAD_REQUEST
             )
         # e_mail 유효성 체크
@@ -114,7 +119,7 @@ class Mypage(APIView):
         resData = {}
 
         # request data로 해당 user model 불러오기
-        user_id = request.query_params.get("data")
+        user_id = request.query_params.get("params")
         userModel = User.objects.get(id=user_id)
         
         # user model에 해당하는 target model 불러오기

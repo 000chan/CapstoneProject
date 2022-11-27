@@ -1,5 +1,4 @@
-import { SettingOutlined, EditOutlined } from '@ant-design/icons';
-import { Avatar, Card, Tabs } from 'antd';
+import { Avatar, Button, Card, Tabs } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { TopMenu } from '../../components/common';
 import axios from "axios";
@@ -7,35 +6,27 @@ import man from '../../assets/images/man.png';
 
 const { Meta } = Card;
 
-const Mypage = () => {
-    let data;
-    if(localStorage.getItem("user")){
-        data=localStorage.getItem("user");
-    }
+// get request params
+let params;
+if(localStorage.getItem("user")){
+    params=localStorage.getItem("user");
+}
 
-    const [user, setUser] = useState([]);
-    const [target, setTarget] = useState([]);
+const MakeInfoTab = ({ user }) => {
+    let labels = [];
+    let label1 = "내 정보";
+    let label2 = "보호대상 정보";
+    labels.push(label1);
+    labels.push(label2);
 
-    useEffect(() => {
-        axios
-            .get("http://127.0.0.1:8000/user/getmypage/", {params:{data}})
-            .then((response) => {
-                setUser(response.data["user"][0]);
-                setTarget(response.data["target"][0]);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }, [])
+    let contents = []
+    let userDataContent = "user";
+    let targetDataContent = "보호대상 정보";
+    contents.push(userDataContent);
+    contents.push(targetDataContent);
 
-    const labels = ['내 정보', '보호대상 정보'];
-    const contents = [
-        "[테스트] django로 부터 username data 받아 출력중" + "\n" + user.username,
-        "[테스트] django로 부터 targetname data 받아 출력중" + "\n" + target.targetname,
-    ];
-
-    const items = new Array(2).fill(null).map((_, i) => {
-        const id = String(i + 1);
+    const items = new Array(contents.length).fill(null).map((_, i) => {
+        let id = String(i + 1);
         return {
             label: labels[id-1],
             key: id,
@@ -48,6 +39,34 @@ const Mypage = () => {
             ),
         };
     });
+
+    return (
+        <>
+            <Tabs type="card"
+                items={items}
+                style={{width: "900px", float: "right", margin: "3% 5% 0 0", whiteSpace:"pre-line"}}
+            />
+        </>
+    );
+};
+
+const Mypage = () => {
+    // response data
+    const [user, setUser] = useState([]);
+    // 유저 정보 수정
+    const [modify, setModify] = useState(0);
+
+    useEffect(() => {
+        axios
+            .get("http://127.0.0.1:8000/user/getmypage/", {params:{params}})
+            .then((response) => {
+                console.log(response.data);
+                setUser(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, []);
 
     return (
         <>
@@ -66,20 +85,45 @@ const Mypage = () => {
                         />
                     }
                     actions={[
-                        <SettingOutlined key="setting" />,
-                        <EditOutlined key="edit" />,
+                        modify==0 ?
+                        <Button
+                            modify={modify}
+                            onClick={() => {
+                                if(modify==0){
+                                    setModify(modify+1);
+                                } else {
+                                    setModify(modify-1);
+                                }
+                            }}
+                        >
+                            개인정보 변경하기
+                        </Button>
+                        :
+                        <Button
+                            modify={modify}
+                            onClick={() => {
+                                if(modify==0){
+                                    setModify(modify+1);
+                                } else {
+                                    setModify(modify-1);
+                                }
+                            }}
+                        >
+                            개인정보 저장하기
+                        </Button>
                     ]}
                 >
                     <Meta
                         user={user}
                         avatar={<Avatar src={man}/>}
-                        title={user.username + " 유저님, 환영합니다!"}
+                        title={user.username + " 님, 환영합니다!"}
                     />
                 </Card>
-                <Tabs type="card"
+                <MakeInfoTab user={user}/>
+                {/* <Tabs type="card"
                     items={items}
                     style={{width: "900px", float: "right", margin: "3% 5% 0 0", whiteSpace:"pre-line"}}
-                />
+                /> */}
             </div>
         </>
     );

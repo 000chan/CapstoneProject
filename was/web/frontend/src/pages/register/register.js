@@ -22,13 +22,13 @@ function RegisterForm() {
     const onFinish = (values) => {
         console.log('Success:', values);
         axios
-        .post("http://127.0.0.1:8000/user/register/", values)
-        .then(function(response){
-            window.location.replace("/user/login");
-        })
-        .catch(function(response){
-            console.log(response);
-        })
+            .post("http://127.0.0.1:8000/user/register/", values)
+            .then(function (response) {
+                window.location.replace("/user/login");
+            })
+            .catch(function (response) {
+                console.log(response);
+            })
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -58,75 +58,75 @@ function RegisterForm() {
                     label="아이디"
                     name="id"
                     rules={[
-                        {required:true, message:"아이디를 입력해주세요"}
+                        { required: true, message: "아이디를 입력해주세요" }
                     ]}
                 >
-                    <Input placeholder="아이디를 입력해주세요"/>
+                    <Input placeholder="아이디를 입력해주세요" />
                 </Form.Item>
 
                 <Form.Item
                     label="비밀번호"
                     name="pass_field"
                     rules={[
-                        {required:true, message:"8자리 이상의 비밀번호를 입력해주세요", min:8}
+                        { required: true, message: "8자리 이상의 비밀번호를 입력해주세요", min: 8 }
                     ]}
                 >
-                    <Input.Password placeholder="비밀번호를 입력해주세요"/>
+                    <Input.Password placeholder="비밀번호를 입력해주세요" />
                 </Form.Item>
 
                 <Form.Item
                     label="비밀번호 확인"
                     name="pass_field_check"
                     rules={[
-                        {required:true, message:"동일한 비밀번호를 입력해주세요"}
+                        { required: true, message: "동일한 비밀번호를 입력해주세요" }
                     ]}
                 >
-                    <Input.Password placeholder="비밀번호를 입력해주세요"/>
+                    <Input.Password placeholder="비밀번호를 입력해주세요" />
                 </Form.Item>
 
                 <Form.Item
                     label="이름"
                     name="username"
                     rules={[
-                        {required:true, message:"이름을 입력해주세요"}
+                        { required: true, message: "이름을 입력해주세요" }
                     ]}
                 >
-                    <Input placeholder="이름을 입력해주세요"/>
+                    <Input placeholder="이름을 입력해주세요" />
                 </Form.Item>
 
                 <Form.Item
                     label="핸드폰 번호"
                     name="userphonenum"
                     rules={[
-                        {required:true, message:"핸드폰 번호를 입력해주세요"}
+                        { required: true, message: "핸드폰 번호를 입력해주세요" }
                     ]}
                 >
-                    <Input placeholder="핸드폰 번호를 입력해주세요"/>
+                    <Input placeholder="핸드폰 번호를 입력해주세요" />
                 </Form.Item>
 
                 <Form.Item
                     label="생년월일"
                     name="birthdate"
                     rules={[
-                        {required:true, message:"생년월일을 입력해주세요"}
+                        { required: true, message: "생년월일을 입력해주세요" }
                     ]}>
-                    <DatePicker placeholder="생년월일을 입력해주세요" style={{width:"100%"}}/>
+                    <DatePicker placeholder="생년월일을 입력해주세요" style={{ width: "100%" }} />
                 </Form.Item>
 
                 <Form.Item
                     label="이메일"
                     name="e_mail"
                     rules={[
-                        {required:true, message:"이메일을 입력해주세요"}
+                        { required: true, message: "이메일을 입력해주세요" }
                     ]}>
-                    <Input placeholder="이메일을 입력해주세요"/>
+                    <Input placeholder="이메일을 입력해주세요" />
                 </Form.Item>
 
                 <Form.Item
-                   label=""  
+                    label=""
                     name="checkTerms"
-                     align="center"
-                     style={{textAlign:"center", }}>
+                    align="center"
+                    style={{ textAlign: "center", }}>
                     <Checkbox
                         checked={acceptTerms}
                         onChange={(e) => setAcceptTerms(e.target.checked)}
@@ -139,7 +139,7 @@ function RegisterForm() {
                     label=""
                     name="register"
                     align="center"
-                    style={{textAlign:"center"}}>
+                    style={{ textAlign: "center" }}>
                     <Button
                         onValuesChange={buttonChange}
                         disabled={!acceptTerms}
@@ -153,7 +153,7 @@ function RegisterForm() {
         </>
 
 
- 
+
     )
 }
 
@@ -162,7 +162,7 @@ const Register = () => {
     return (
         <>
             <TopMenu />
-            <h1 style={{textAlign:"center", marginTop:"3%"}}>환영합니다</h1>
+            <h1 style={{ textAlign: "center", marginTop: "3%" }}>환영합니다</h1>
             <RegisterForm />
         </>
     );
