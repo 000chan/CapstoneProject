@@ -12,7 +12,7 @@ class MissingAnnouncement(models.Model):
     infonum = models.ForeignKey('MissingInfo', models.DO_NOTHING, db_column='InfoNum')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'Missing_Announcement'
         verbose_name = 'Missing_Announcement'
         verbose_name_plural = 'Missing_Announcement'
@@ -28,7 +28,7 @@ class MissingInfo(models.Model):
     disappearancearea = models.TextField(db_column='DisappearanceArea', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'Missing_Info'
         verbose_name = 'Missing_Info'
         verbose_name_plural = 'Missing_Info'
@@ -45,7 +45,7 @@ class MissingProtector(models.Model):
 
     # meta data
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'Missing_Protector'
         verbose_name = 'Missing_Protector'
         verbose_name_plural = 'Missing_Protector'
@@ -64,7 +64,7 @@ class Pastpath(models.Model):
     longitude = models.FloatField(db_column='Longitude', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'PastPath'
         unique_together = (('devicename', 'targetnum', 'usernum', 'signaledtime'),)
         verbose_name = 'PastPath'
@@ -80,7 +80,7 @@ class Search(models.Model):
     usernum = models.ForeignKey('backend_appUser.User', models.DO_NOTHING, db_column='UserNum')  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        # managed = False
         db_table = 'Search'
         unique_together = (('targetnum', 'usernum'),)
         verbose_name = 'Search'

@@ -7,13 +7,8 @@ from .views import Test, Map
 # http://localhost/service
 app_name = 'backend_appService'
 urlpatterns = [
-    path('', views.home, name='serviceHome'),
-    path('chan/', views.chan, name='serviceChan'),
-    path('hoon/', views.hoon, name='serviceHoon'),
-    path('project/', views.project, name='serviceProject'),
 
     path('map/', Map.as_view()),
-    path('mypage/', Test.as_view()),
 
 #     path('map/', Map.as_view()),          > (지도 페이지)
 #     path('mypage/', Test.as_view()),      > (마이 페이지)

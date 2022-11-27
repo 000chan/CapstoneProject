@@ -5,13 +5,6 @@ from backend_appUser.models import User
 # from .models import apData
 # from .serializer import apSerializer
 from datetime import datetime
-# import redis
-
-# servicePage home
-def home(request):
-    context={}
-    context['login_session'] = request.session['login_session']
-    return render(request, 'service.html', context)  
 
 # servicePage maps
 def maps(request):
@@ -76,18 +69,6 @@ def maps(request):
         # currentUser_s = userSerializer
 
     return render(request, 'mypage.html', context)
-
-# servicePage chan
-def chan(request):
-    return render(request, 'chan.html')
-
-# servicePage hoon
-def hoon(request):
-    return render(request, 'hoon.html')
-
-# servicePage project
-def project(request):
-    return render(request, 'project.html')
 
 
 from rest_framework import status
