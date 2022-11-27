@@ -28,13 +28,13 @@ class User(models.Model):
 class Target(models.Model):
     targetnum = models.SmallAutoField(db_column='TargetNum', primary_key=True)  # Field name made lowercase.
     usernum = models.ForeignKey('User', models.DO_NOTHING, db_column='UserNum')  # Field name made lowercase.
-    targetname = models.CharField(db_column='TargetName', max_length=32, blank=True, null=True)  # Field name made lowercase.
-    gender = models.CharField(db_column='Gender', max_length=1, blank=True, null=True)  # Field name made lowercase.
-    image = models.TextField(db_column='Image', blank=True, null=True)  # Field name made lowercase.
-    birthdate = models.DateTimeField(db_column='BirthDate', blank=True, null=True)  # Field name made lowercase.
-    targetage = models.IntegerField(db_column='TargetAge', blank=True, null=True)  # Field name made lowercase.
-    missingornot = models.IntegerField(db_column='MissingOrNot', blank=True, null=True)  # Field name made lowercase.
-    urgentnum = models.CharField(db_column='UrgentNum', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    targetname = models.CharField(db_column='TargetName', unique=False, max_length=32, blank=True, null=True)  # Field name made lowercase.
+    gender = models.CharField(db_column='Gender', unique=False, max_length=1, blank=True, null=True)  # Field name made lowercase.
+    image = models.TextField(db_column='Image', unique=False, blank=True, null=True)  # Field name made lowercase.
+    birthdate = models.DateTimeField(db_column='BirthDate', unique=False, blank=True, null=True)  # Field name made lowercase.
+    targetage = models.IntegerField(db_column='TargetAge', unique=False, blank=True, null=True)  # Field name made lowercase.
+    missingornot = models.IntegerField(db_column='MissingOrNot', unique=False, blank=True, null=True)  # Field name made lowercase.
+    urgentnum = models.CharField(db_column='UrgentNum', unique=False, max_length=32, blank=True, null=True)  # Field name made lowercase.
 
     # meta data
     class Meta:
@@ -65,7 +65,3 @@ class Device(models.Model):
     # naming data
     def __str__(self):
         return self.devicename
-
-class testLogin(models.Model):
-    testid = models.CharField(max_length=50)
-    testpw = models.CharField(max_length=50)

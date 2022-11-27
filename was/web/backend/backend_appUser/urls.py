@@ -1,12 +1,15 @@
 from django.urls import path
-from .views import Login, Register
+from .views import Login, Register, Mypage
 
 # http://localhost/user
 app_name = 'backend_appUser'
 urlpatterns = [
-    # 테스트 로그인 페이지
+    # 로그인 API
     path('login/', Login.as_view()),
 
-    # 테스트 회원가입 페이지
+    # 회원가입 API
     path('register/', Register.as_view()),
+
+    # 마이페이지 API
+    path('getmypage/', Mypage.as_view()),
 ]
