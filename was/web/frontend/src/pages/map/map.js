@@ -25,7 +25,6 @@ function getMapData(params, responseState) {
         .get("http://127.0.0.1:8000/service/map/", {params:{params}})
         .then((response) => {
             responseState(response.data);
-            console.log(response.data);
         })
         .catch(function (error) {
             console.log(error);
@@ -57,16 +56,24 @@ const Map = () => {
     let container = "map";
     let position = [33.450701, 126.570667];
     
-    // response data (user)
-    const [user, setUser] = useState([]);
-    // response data (map)
-    const [map, setMap] = useState([]);
+    const [user, setUser] = useState([]);   // 회원정보를 위한 상태
+    const [map, setMap] = useState([]);     // 위치정보를 위한 상태
 
     useEffect(() => {
-        makeMap(container, position);
+        makeMap(container, position); // test=null
         getUserData(logindata, setUser);
+        getMapData(logindata, setMap);
     }, [])
-    
+
+    let test = [];
+    if(user.length!=0 && map.length!=0) {
+        console.log(user[0]);
+        console.log(map[0]);
+        test.push(map[0]["latitude"]);
+        test.push(map[0]["longitude"]);
+        console.log(test)
+    }
+
     return (
         <>
             <TopMenu/>
