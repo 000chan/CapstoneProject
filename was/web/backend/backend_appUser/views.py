@@ -21,15 +21,6 @@ class Login(APIView):
                 { "message" : "아이디가 존재하지 않습니다." },
                 status=status.HTTP_400_BAD_REQUEST
             )
-        # if User.objects.get(id=id):
-        #     user = User.objects.get(id=id)
-        #     ("===SUCCESS: 일치하는 아이디를 찾았습니다!===")
-        # else:
-        #     print("===ERROR: 아이디 데이터가 올바르지 않습니다.===")
-        #     return Response(
-        #         { "message" : "아이디가 존재하지 않습니다." },
-        #         status=status.HTTP_400_BAD_REQUEST
-        #     )
 
         # 회원이 맞는 경우, 비밀번호 검사
         try:
@@ -42,11 +33,6 @@ class Login(APIView):
             { "message" : "입력된 비밀번호가 올바르지 않습니다. 다시 입력해주세요" },
             status=status.HTTP_400_BAD_REQUEST
             )
-        # if PasswordHasher().verify(user.pass_field, password=password):
-        #     print("===SUCCESS: 로그인 성공!===")
-        #     return Response(user.id, status=status.HTTP_200_OK)
-        # else:
-        #     print("===ERROR: 비밀번호 데이터가 올바르지 않습니다.===")
         
 
 class Register(APIView):
@@ -153,7 +139,5 @@ class Mypage(APIView):
             })
         except:
             print("===ERROR: Target 모델을 불러오는데 실패했습니다.===")
-
-        print(resData)
-
+            
         return Response(resData, status=status.HTTP_200_OK)
