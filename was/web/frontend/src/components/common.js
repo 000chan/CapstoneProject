@@ -22,29 +22,29 @@ function TopMenu() {
     return (
         <>
             <Menu mode="horizontal" defaultSelectedKeys={['topMenu']}>
-                <Menu.Item key="menu1" icon={<HomeOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.replace("/home")}}>
+                <Menu.Item key="menu1" icon={<HomeOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.href="/home"}}>
                     홈
                 </Menu.Item>
                 {
                     localStorage.getItem("user") ?
                         null :
                         <Menu.SubMenu key="SubMenu1" title="시작하기" icon={<RocketOutlined/>} style={{width:200, textAlign:"center"}}>
-                            <Menu.Item key="sub1-1" icon={<KeyOutlined/>} onClick={()=>{window.location.replace("/user/login")}}>
+                            <Menu.Item key="sub1-1" icon={<KeyOutlined/>} onClick={()=>{window.location.href = ("/user/login")}}>
                                 로그인
                             </Menu.Item>
-                            <Menu.Item key="sub1-2" icon={<IdcardOutlined/>} onClick={()=>{window.location.replace("/user/register")}}>
+                            <Menu.Item key="sub1-2" icon={<IdcardOutlined/>} onClick={()=>{window.location.href = ("/user/register")}}>
                                 회원가입
                             </Menu.Item>
                         </Menu.SubMenu>
                 }
                 <Menu.SubMenu key="SubMenu2" title="소개" icon={<SolutionOutlined/>} style={{width:200, textAlign:"center"}}>
-                    <Menu.Item key="sub2-1" icon={<BarsOutlined/>} onClick={()=>{window.location.replace("/service/about")}}>
+                    <Menu.Item key="sub2-1" icon={<BarsOutlined/>} onClick={()=>{window.location.href = ("/service/about")}}>
                         서비스
                     </Menu.Item>
-                    <Menu.Item key="sub2-2" icon={<TeamOutlined/>} onClick={()=>{window.location.replace("/service/project")}}>
+                    <Menu.Item key="sub2-2" icon={<TeamOutlined/>} onClick={()=>{window.location.href = ("/service/project")}}>
                         멤버
                     </Menu.Item>
-                    <Menu.Item key="sub2-3" icon={<ToolOutlined/>} onClick={()=>{window.location.replace("/service/tech")}}>
+                    <Menu.Item key="sub2-3" icon={<ToolOutlined/>} onClick={()=>{window.location.href = ("/service/tech")}}>
                         기술
                     </Menu.Item>
                 </Menu.SubMenu>
@@ -68,9 +68,7 @@ function TopMenu() {
                 {
                     localStorage.getItem("user") ?
                         <>
-                            <Menu.Item style={{width:200, visibility:"hidden"}}/>
-                            <Menu.Item style={{width:200, visibility:"hidden"}}/>
-                            <Menu.Item key="menu4" icon={<UnlockOutlined/>} style={{width:200, textAlign:"center"}} onClick={()=>{window.location.replace("/"); localStorage.removeItem("user")}}>
+                            <Menu.Item key="menu4" icon={<UnlockOutlined/>} style={{width:200, textAlign:"center", }} onClick={()=>{window.location.replace("/"); localStorage.removeItem("user")}}>
                             로그아웃
                             </Menu.Item>
                         </>
