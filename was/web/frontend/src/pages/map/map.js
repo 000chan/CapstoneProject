@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import { TopMenu, MapSideMenu } from '../../components/common';
 import axios from "axios";
+import { FloatButton } from 'antd';
+import { SyncOutlined } from '@ant-design/icons';
 
 // get request params
 let logindata;
@@ -32,22 +34,30 @@ function getMapData(params, responseState) {
 }
 
 // map
-function makeMap(containerId, position) {
+function makeMap(containerId, target) {
     var container = document.getElementById(containerId);
     
     var options = {
-        center: new kakao.maps.LatLng(position[0], position[1]),
+        center: new kakao.maps.LatLng(target[0], target[1]),
         level: 3
     };
     
     var map = new kakao.maps.Map(container, options);
     
-    var mapTypeControl = new kakao.maps.MapTypeControl();   // 지도타입 컨트롤(일반 지도, 스카이뷰)
+    var mapTypeControl = new kakao.maps.MapTypeControl();                       // 지도타입 컨트롤(일반 지도, 스카이뷰)
 
-    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);    // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미
+    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);        // 컨트롤이 표시될 위치
 
-    var zoomControl = new kakao.maps.ZoomControl(); // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+    var zoomControl = new kakao.maps.ZoomControl();                             // 줌 컨트롤
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+    var markerPosition  = new kakao.maps.LatLng(target[0], target[1]);          // 마커 표시
+
+    var marker = new kakao.maps.Marker({                                        // 마커 생성
+        position: markerPosition
+    });
+
+    marker.setMap(map);
 
     return map;
 }
@@ -60,37 +70,25 @@ const Map = () => {
     const [map, setMap] = useState([]);     // 위치정보를 위한 상태
 
     useEffect(() => {
-        makeMap(container, position); // test=null
+        makeMap(container, position);
         getUserData(logindata, setUser);
         getMapData(logindata, setMap);
     }, [])
 
-    let test = [];
-    if(user.length!=0 && map.length!=0) {
-        console.log(user[0]);
-        console.log(map[0]);
-        test.push(map[0]["latitude"]);
-        test.push(map[0]["longitude"]);
-        console.log(test)
-    }
 
     return (
         <>
             <TopMenu/>
-            <div id="map" style={{ width: "100%", height: "400px", margin: "10px 0 0 0" }}/>
-            <br/>
-            <div style={{display: "flex"}}>
-                <MapSideMenu/>
-                <button
-                    user = {user}
-                    onClick={() => {
-                        getMapData(logindata, setMap);
-                    }}
-                    style={{height: 30}}
-                >
-                    GET
-                </button>
-            </div>
+            <div id="map" style={{ width: "100%", height: "500px", margin: "10px 0 0 0" }}/>
+            <FloatButton
+                icon={<SyncOutlined/>}
+                tooltip={<div>위치정보를 새로고침합니다.</div>}
+                map={map}
+                onClick={() => {
+                    getMapData(logindata, setMap);
+                    makeMap(container, [map[0]["latitude"], map[0]["longitude"]]);
+                }}
+            />
         </>
     );
 }
