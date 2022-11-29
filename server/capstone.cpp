@@ -214,6 +214,23 @@ bool Disconnect(stUSER*);
 // 메인 함수.
 int main(int argc, char** argv)
 {
+	/*
+	int pid;
+	pid = fork();
+	if (pid > 0) {
+		printf("Parent process id: %d \n", getpid());
+		exit(0);
+	}
+	else if (pid == 0) {
+		sleep(1);
+		printf("Childprocess pid: %d, ppid: %d\n", getpid(), getppid());
+		close(0);       close(1);       close(2);
+		setsid();
+		printf("Deamon Process started");
+	}
+	//*/
+
+
 	int retval;
 
 	g_listen_sock = socket(AF_INET, SOCK_STREAM, 0);
