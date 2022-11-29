@@ -1,5 +1,8 @@
 import { Avatar, Button, Card, Tabs, Form, Input, DatePicker, Checkbox } from 'antd';
+<<<<<<< HEAD
 import { Select, Space, Tooltip, Typography } from 'antd';
+=======
+>>>>>>> 3f32cfee4e49f771d7139c4eb934436a92a73061
 import React, { useEffect, useState } from 'react';
 import { TopMenu } from '../../components/common';
 import axios from "axios";
@@ -14,6 +17,7 @@ if(localStorage.getItem("user")){
     params=localStorage.getItem("user");
 }
 
+<<<<<<< HEAD
 function ModifyUserInfo({mypageData}) {
     let userData = mypageData["user"][0]
     let targetData = mypageData["target"][0]
@@ -86,6 +90,80 @@ function ModifyUserInfo({mypageData}) {
         </>
     );
 }
+=======
+// function ModifyUserInfo({mypageData}) {
+//     let userData = mypageData["user"][0]
+//     let targetData = mypageData["target"][0]
+//     // registerForm input value 검사
+//     const onFinish = (values) => {
+//         axios
+//             .put("http://127.0.0.1:8000/user/mypage/", values)
+//             .then(function (response) {
+//                 console.log(response);
+//             })
+//             .catch(function (response) {
+//                 console.log(response);
+//             })
+//     };
+//     const onFinishFailed = (errorInfo) => {
+//         console.log('Failed:', errorInfo);
+//     };
+//     return (
+//         <>
+//             <Form
+//                 labelCol={{
+//                     span: 8,
+//                 }}
+//                 wrapperCol={{
+//                     span: 8,
+//                 }}
+//                 size="large"
+//                 layout="horizontal"
+//                 style={{
+//                     width: "100%",
+//                     margin: "3% 0 0 0",
+//                 }}
+//                 autoComplete="off"
+//                 onFinish={onFinish}
+//                 onFinishFailed={onFinishFailed}
+//             >
+
+//                 <Form.Item
+//                     label="이름"
+//                     name="username"
+//                     initialValue={userData.username}
+//                     rules={[
+//                         { required: true, message: "이름을 입력해주세요" }
+//                     ]}
+//                 >
+//                     <Input placeholder="이름을 입력해주세요" />
+//                 </Form.Item>
+
+//                 <Form.Item
+//                     label="핸드폰 번호"
+//                     name="userphonenum"
+//                     initialValue={userData.userphonenum}
+//                     rules={[
+//                         { required: true, message: "핸드폰 번호를 입력해주세요" }
+//                     ]}
+//                 >
+//                     <Input placeholder="핸드폰 번호를 입력해주세요" />
+//                 </Form.Item>
+
+//                 <Form.Item
+//                     label="이메일"
+//                     name="e_mail"
+//                     initialValue={userData.e_mail}
+//                     rules={[
+//                         { required: true, message: "이메일을 입력해주세요" }
+//                     ]}>
+//                     <Input placeholder="이메일을 입력해주세요" />
+//                 </Form.Item>
+//             </Form>
+//         </>
+//     );
+// }
+>>>>>>> 3f32cfee4e49f771d7139c4eb934436a92a73061
 
 const Mypage = () => {
     const [mypageData, setMypageData] = useState([]);   // 회원정보를 위한 상태
@@ -212,6 +290,7 @@ const Mypage = () => {
                 <Tabs type="card"
                         items={items}
                         style={{width: "900px", float: "right", margin: "3% 5% 0 0", whiteSpace:"pre-line"}}
+<<<<<<< HEAD
                 
                 />
 
@@ -236,6 +315,9 @@ const Mypage = () => {
                     </div>
 
 
+=======
+                />
+>>>>>>> 3f32cfee4e49f771d7139c4eb934436a92a73061
                 {/* {
                     modify==0?
                     <Tabs type="card"
@@ -257,7 +339,11 @@ const Mypage = () => {
                         ></ModifyUserInfo>
                     </>
                 } */}
+<<<<<<< HEAD
            </div>
+=======
+            </div>
+>>>>>>> 3f32cfee4e49f771d7139c4eb934436a92a73061
         </>
     );
 }

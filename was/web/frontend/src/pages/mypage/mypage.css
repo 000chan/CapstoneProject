@@ -30,17 +30,16 @@ body {
     transform: translate(-20%);
 }
 
-    .usersetting-content-obj{
-        font-size: 18px;
-        min-height: 30px;
-        height: 50px;
-        margin: 10px;
-        vertical-align: middle;
-        
+.usersetting-content-obj{
+    font-size: 18px;
+    min-height: 30px;
+    height: 50px;
+    margin: 10px;
+    vertical-align: middle;
     }
 
 
-        .usersetting-content-obj-subject{
+    .usersetting-content-obj-subject{
             display: inline-block;
             width: 30%;
             height: 100%;
@@ -48,7 +47,7 @@ body {
             text-align: left;
             vertical-align: middle;
             margin: auto;            
-        }
+    }
 
         .usersetting-content-obj-data{
             display: inline-block;
@@ -57,37 +56,37 @@ body {
             text-align: left;
             vertical-align: middle;
             margin: auto;            
-        }
+    }
 
         .usersetting-content-obj-data input{
             height: 28px;
             width: 200px;
             vertical-align: middle;
             padding: 10px;
-        }
+    }
 
 
         .usersetting-content-btn{
             text-align: center;
             vertical-align: middle;
-        }
+    }
     
         .usersetting-content-submit{
             display: inline-block;
             text-align: center;
             margin: auto;
             min-width: 100px;
-        }
+    }
     
         .usersetting-content-submit button{
-                width: 80px;
-                height: 30px;
-                border-radius: 5px;
-                border-style: none;
-                box-shadow: 1px 1px 3px;
-                font-weight: bold;
-            }
+            width: 80px;
+            height: 30px;
+            border-radius: 5px;
+            border-style: none;
+            box-shadow: 1px 1px 3px;
+            font-weight: bold;
+    }
     
         .usersetting-content-submit button:hover{
-                    cursor: pointer;
-          }
+            cursor: pointer;
+    }
