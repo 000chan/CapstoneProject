@@ -823,3 +823,8 @@ int CRingBuffer::Dequeue(char* chpDest, int iSize)
 		}
 	}
 }
+
+void CRingBuffer::ClearBuffer(void)
+{
+	this->FrontPos = this->RearPos;
+}
