@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif
+}
+
+html, body{
+    width: 100%;
+    background-color: #fff;
+}
+
+body {
+    margin: 0 auto;
+}
+
+
+.usersetting-content-container-box{
+    color: #080808;
+    border: 1px solid #d2d2d2;
+    border-radius: 15px;
+    width: 80vh;
+    min-height: 380px;
+    margin: auto;
+    padding: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform: translate(-20%);
+}
+
+    .usersetting-content-obj{
+        font-size: 18px;
+        min-height: 30px;
+        height: 50px;
+        margin: 10px;
+        vertical-align: middle;
+        
+    }
+
+
+        .usersetting-content-obj-subject{
+            display: inline-block;
+            width: 30%;
+            height: 100%;
+            padding-left: 20px;
+            text-align: left;
+            vertical-align: middle;
+            margin: auto;            
+        }
+
+        .usersetting-content-obj-data{
+            display: inline-block;
+            width: 64%;
+            height: 100%;
+            text-align: left;
+            vertical-align: middle;
+            margin: auto;            
+        }
+
+        .usersetting-content-obj-data input{
+            height: 28px;
+            width: 200px;
+            vertical-align: middle;
+            padding: 10px;
+        }
+
+
+        .usersetting-content-btn{
+            text-align: center;
+            vertical-align: middle;
+        }
+    
+        .usersetting-content-submit{
+            display: inline-block;
+            text-align: center;
+            margin: auto;
+            min-width: 100px;
+        }
+    
+        .usersetting-content-submit button{
+                width: 80px;
+                height: 30px;
+                border-radius: 5px;
+                border-style: none;
+                box-shadow: 1px 1px 3px;
+                font-weight: bold;
+            }
+    
+        .usersetting-content-submit button:hover{
+                    cursor: pointer;
+          }
