@@ -14,9 +14,6 @@ if(localStorage.getItem("user")){
 function getUserData(params, responseState) {
     axios
         .get("http://127.0.0.1:8000/service/user/", {params:{params}})
-        .then((response) => {
-            console.log('getUserData');
-        })
         .catch(function (error) {
             console.log(error);
         });
@@ -85,6 +82,7 @@ const Map = () => {
                 tooltip={<div>위치정보를 새로고침합니다.</div>}
                 mapdata={mapdata}
                 onClick={() => {
+                    document.getElementById("map").innerHTML = "";
                     getMapData(logindata, setMap);
                     try {
                         makeMap(container, [mapdata[0]["latitude"], mapdata[0]["longitude"]]);
