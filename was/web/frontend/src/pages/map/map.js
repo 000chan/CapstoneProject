@@ -1,6 +1,6 @@
 /*global kakao*/
 import React, { useEffect, useState } from 'react'
-import { TopMenu, MapSideMenu } from '../../components/common';
+import { TopMenu } from '../../components/common';
 import axios from "axios";
 import { FloatButton } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
@@ -14,9 +14,6 @@ if(localStorage.getItem("user")){
 function getUserData(params, responseState) {
     axios
         .get("http://127.0.0.1:8000/service/user/", {params:{params}})
-        .then((response) => {
-            responseState(response.data);
-        })
         .catch(function (error) {
             console.log(error);
         });
@@ -29,7 +26,7 @@ function getMapData(params, responseState) {
             responseState(response.data);
         })
         .catch(function (error) {
-            console.log(error);
+            alert(error.response.data["message"]);
         });
 }
 
@@ -67,7 +64,7 @@ const Map = () => {
     let position = [33.450701, 126.570667];
     
     const [user, setUser] = useState([]);   // 회원정보를 위한 상태
-    const [map, setMap] = useState([]);     // 위치정보를 위한 상태
+    const [mapdata, setMap] = useState([]);     // 위치정보를 위한 상태
 
     useEffect(() => {
         makeMap(container, position);
@@ -83,10 +80,16 @@ const Map = () => {
             <FloatButton
                 icon={<SyncOutlined/>}
                 tooltip={<div>위치정보를 새로고침합니다.</div>}
-                map={map}
+                mapdata={mapdata}
                 onClick={() => {
+                    document.getElementById("map").innerHTML = "";
                     getMapData(logindata, setMap);
-                    makeMap(container, [map[0]["latitude"], map[0]["longitude"]]);
+                    try {
+                        makeMap(container, [mapdata[0]["latitude"], mapdata[0]["longitude"]]);
+                        alert("신호시간 : "+mapdata[0]["signaledtime"])
+                    } catch {
+                        makeMap(container, position);
+                    }
                 }}
             />
         </>

@@ -10,7 +10,6 @@ import { TopMenu } from '../../components/common';
 import axios from "axios";
 import './register.css'
 
-
 function RegisterForm() {
     // [상태] 개인정보 수집 동의 버튼
     const [acceptTerms, setAcceptTerms] = useState(false);
@@ -32,7 +31,6 @@ function RegisterForm() {
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-
 
     return (
         <>
@@ -150,14 +148,10 @@ function RegisterForm() {
                 </Form.Item>
             </Form>
         </>
-
-
-
     )
 }
 
 const Register = () => {
-
     return (
         <>
             <TopMenu />
