@@ -110,9 +110,10 @@ class Mypage(APIView):
         
         # user model에 해당하는 target model 불러오기
         key = userModel.usernum
-        if Target.objects.get(usernum=key):
+        try:
+            Target.objects.get(usernum=key)
             targetModel = Target.objects.get(usernum=key)
-        else:
+        except:
             print("==ERROR: 해당하는 target 데이터가 없습니다.===")
 
         try:
@@ -125,6 +126,14 @@ class Mypage(APIView):
                 "userage" : userModel.userage,
             })
         except:
+            resData["user"] = []
+            resData["user"].append({
+                "id" : "정보없음",
+                "username" : "정보없음",
+                "userphonenum" : "정보없음",
+                "e_mail" : "정보없음",
+                "userage" : "정보없음",
+            })
             print("===ERROR: User 모델을 불러오는데 실패했습니다.===")
 
         try:
@@ -138,6 +147,15 @@ class Mypage(APIView):
                 "urgentnum" : targetModel.urgentnum,
             })
         except:
+            resData["target"] = []
+            resData["target"].append({
+                "targetname" : "정보없음",
+                "gender" : "정보없음",
+                "birthdate" : "정보없음",
+                "targetage" : "정보없음",
+                "missingornot" : "정보없음",
+                "urgentnum" : "정보없음",
+            })
             print("===ERROR: Target 모델을 불러오는데 실패했습니다.===")
             
         return Response(resData, status=status.HTTP_200_OK)
