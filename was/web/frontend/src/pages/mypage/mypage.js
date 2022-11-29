@@ -13,32 +13,13 @@ if (localStorage.getItem("user")) {
     params = localStorage.getItem("user");
 }
 
-function ModifyUserInfo({ mypageData }) {
-    let userData = mypageData["user"][0]
-    let targetData = mypageData["target"][0]
-    // registerForm input value 검사
-    const onFinish = (values) => {
-        axios
-            .put("http://127.0.0.1:8000/user/mypage/", values)
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (response) {
-                console.log(response);
-            })
-    };
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
-    return (
-        <>
-        </>
-    );
+function modifyInfo() {
+    console.log('test')
+    document.getElementsByClassName("contents")[0].innerHTML = ''
 }
 
 const Mypage = () => {
     const [mypageData, setMypageData] = useState([]);   // 회원정보를 위한 상태
-    // const [modify, setModify] = useState(0);            // 회원정보 수정을 위한 상태
 
     // axios 통신
     useEffect(() => {
@@ -89,13 +70,18 @@ const Mypage = () => {
     contents.push(userDataContent);
     contents.push(targetDataContent);
 
-    const items = new Array(contents.length).fill(null).map((_, i) => {
+    const items = new Array(labels.length).fill(null).map((_, i) => {
         let id = String(i + 1);
         return {
             label: labels[id - 1],
             key: id,
             children: (
                 <>
+                    <div style={{textAlign:"right"}}>
+                        <Button
+                            onClick={modifyInfo}
+                        >수정하기</Button>
+                    </div>
                     <div style={{ marginLeft: "3%" }}>
                         {contents[id - 1]}
                     </div>
@@ -129,29 +115,7 @@ const Mypage = () => {
                 <Tabs type="card"
                     items={items}
                     style={{ width: "900px", float: "right", margin: "3% 5% 0 0", whiteSpace: "pre-line" }}
-
-
                 />
-
-                <div className='usersetting-content-container-box'>
-                    <div className='usersetting-content-obj' id='username'>
-                        <div className='usersetting-content-obj-subject'>아이디</div>
-                        <div className='usersetting-content-obj-data'><input id="username" name="username" placeholder="아이디" type="text" /></div>
-                    </div>
-                    <div className='usersetting-content-obj' id='setting-password'>
-                        <div className='usersetting-content-obj-subject'>비밀번호 변경</div>
-                        <div className='usersetting-content-obj-data'><input type="password" id="pass_field" name="pass_field" placeholder="*****" /></div>
-                    </div>
-                    <div className='usersetting-content-obj'>
-                        <div className='usersetting-content-obj-subject'>비밀번호 확인</div>
-                        <div className='usersetting-content-obj-data'><input id="pass_field_check" name="pass_field_check" placeholder="비밀번호 확인" type="password" autoComplete="off" /></div>
-                    </div>
-                    <div className='usersetting-content-btn'>
-                        <div className='usersetting-content-submit'>
-                            <button>수정</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </>
     );
