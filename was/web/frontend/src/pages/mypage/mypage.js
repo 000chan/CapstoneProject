@@ -1,4 +1,4 @@
-import { Select, Space, Tooltip, Typography, Avatar, Button, Card, Tabs, Form, Input, DatePicker, Checkbox } from 'antd';
+import { Select, Space, Tooltip, Typography, Avatar, Button, Card, Tabs, Form, Input, DatePicker, Checkbox, Radio } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { TopMenu } from '../../components/common';
 import axios from "axios";
@@ -13,13 +13,177 @@ if (localStorage.getItem("user")) {
     params = localStorage.getItem("user");
 }
 
-function modifyInfo() {
-    console.log('test')
-    document.getElementsByClassName("contents")[0].innerHTML = ''
+function modifyInfo(state, setState) {
+    if (state == 0) { setState(1) }
+    else if (state == 1) { setState(0) }
+    console.log(state)
+}
+
+function ModifyForm(id, data) {
+    // user form
+    if (id == 1) {
+        return (
+            <>
+                <Form
+                    labelCol={{
+                        span: 8,
+                    }}
+                    wrapperCol={{
+                        span: 8,
+                    }}
+                    size="large"
+                    layout="horizontal"
+                    style={{
+                        width: "100%",
+                    }}
+                    autoComplete="off"
+                >
+                    <Form.Item
+                        label="아이디"
+                        name="id"
+                        initialValue={data["user"][0]["id"]}
+                        rules={[
+                            { required: true, message: "아이디를 입력해주세요" }
+                        ]}
+                    >
+                        <Input placeholder="아이디를 입력해주세요" />
+                    </Form.Item>
+                    <Form.Item
+                        label="이름"
+                        name="username"
+                        initialValue={data["user"][0]["username"]}
+                        rules={[
+                            { required: true, message: "이름을 입력해주세요" }
+                        ]}
+                    >
+                        <Input placeholder="이름을 입력해주세요" />
+                    </Form.Item>
+                    <Form.Item
+                        label="핸드폰 번호"
+                        name="userphonenum"
+                        initialValue={data["user"][0]["userphonenum"]}
+                        rules={[
+                            { required: true, message: "핸드폰 번호를 입력해주세요" }
+                        ]}
+                    >
+                        <Input placeholder="핸드폰 번호를 입력해주세요" />
+                    </Form.Item>
+                    <Form.Item
+                        label="이메일"
+                        name="e_mail"
+                        initialValue={data["user"][0]["e_mail"]}
+                        rules={[
+                            { required: true, message: "이메일을 입력해주세요" }
+                        ]}>
+                        <Input placeholder="이메일을 입력해주세요" />
+                    </Form.Item>
+                    <Form.Item
+                        label=""
+                        name="register"
+                        align="center"
+                        style={{ textAlign: "center" }}>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                        >
+                            저장하기
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </>
+        );
+    }
+    // target form
+    else if (id == 2) {
+        return (
+            <>
+                <Form
+                    labelCol={{
+                        span: 8,
+                    }}
+                    wrapperCol={{
+                        span: 8,
+                    }}
+                    size="large"
+                    layout="horizontal"
+                    style={{
+                        width: "100%",
+                    }}
+                    autoComplete="off"
+                >
+                    <Form.Item
+                        label="이름"
+                        name="targetname"
+                        initialValue={data["target"][0]["targetname"]}
+                        rules={[
+                            { required: true, message: "이름을 입력해주세요" }
+                        ]}
+                    >
+                        <Input placeholder="이름을 입력해주세요" />
+                    </Form.Item>
+                    <Form.Item
+                        label="성별"
+                        name="gender"
+                        rules={[
+                            { required: true }
+                        ]}
+                    >
+                        <Radio.Group>
+                            <Radio value={"male"}>남</Radio>
+                            <Radio value={"female"}>여</Radio>
+                        </Radio.Group>
+                    </Form.Item>
+                    <Form.Item
+                        label="생년월일"
+                        name="birthdate"
+                        rules={[
+                            { required: true, message: "생년월일을 입력해주세요" }
+                        ]}>
+                        <DatePicker placeholder="생년월일을 입력해주세요" style={{ width: "100%" }} />
+                    </Form.Item>
+                    <Form.Item
+                        label="실종 유무"
+                        name="missingornot"
+                        rules={[
+                            { required: true }
+                        ]}
+                    >
+                        <Radio.Group>
+                            <Radio value={"missing"}>실종</Radio>
+                            <Radio value={"nomissing"}>미실종</Radio>
+                        </Radio.Group>
+                    </Form.Item>
+                    <Form.Item
+                        label="긴급 연락처"
+                        name="urgentnum"
+                        initialValue={data["target"][0]["urgentnum"]}
+                        rules={[
+                            { required: true, message: "긴급 연락처를 입력해주세요" }
+                        ]}
+                    >
+                        <Input placeholder="긴급 연락처를 입력해주세요" />
+                    </Form.Item>
+                    <Form.Item
+                        label=""
+                        name="register"
+                        align="center"
+                        style={{ textAlign: "center" }}>
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                        >
+                            저장하기
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </>
+        );
+    }
 }
 
 const Mypage = () => {
     const [mypageData, setMypageData] = useState([]);   // 회원정보를 위한 상태
+    const [modifyData, setModifyData] = useState(0);   // 회원정보를 위한 상태
 
     // axios 통신
     useEffect(() => {
@@ -44,31 +208,25 @@ const Mypage = () => {
         let tmpArrU = Object.entries(mypageData["user"][0]);
         let tmpStrU = [];
         tmpArrU.forEach(function (items) {
-            tmpStrU.push(items[0] + " : " + items[1] + "\n");
+            tmpStrU.push(items[0] + " : " + items[1] + "\n\n");
         });
         usercontent = tmpStrU.join('');
 
         let tmpArrT = Object.entries(mypageData["target"][0]);
         let tmpStrT = [];
         tmpArrT.forEach(function (items) {
-            tmpStrT.push(items[0] + " : " + items[1] + "\n");
+            tmpStrT.push(items[0] + " : " + items[1] + "\n\n");
         });
         targetcontent = tmpStrT.join('');
     }
 
     // 탭 라벨 생성
-    let labels = [];
-    let label1 = "내 정보";
-    let label2 = "보호대상 정보";
-    labels.push(label1);
-    labels.push(label2);
+    let labels = ["내 정보", "보호대상 정보"];
 
     // 탭 내용 생성
-    let contents = []
-    let userDataContent = usercontent;
-    let targetDataContent = targetcontent;
-    contents.push(userDataContent);
-    contents.push(targetDataContent);
+    let contents = [];
+    contents.push(usercontent);
+    contents.push(targetcontent);
 
     const items = new Array(labels.length).fill(null).map((_, i) => {
         let id = String(i + 1);
@@ -77,14 +235,25 @@ const Mypage = () => {
             key: id,
             children: (
                 <>
-                    <div style={{textAlign:"right"}}>
+                    <div style={{ textAlign: "right" }}>
                         <Button
-                            onClick={modifyInfo}
-                        >수정하기</Button>
+                            modifyData={modifyData}
+                            mypageData={mypageData}
+                            onClick={() => modifyInfo(modifyData, setModifyData)}
+                        >
+                            {
+                                modifyData == 0 ?
+                                    '수정하기' : '돌아가기'
+                            }
+                        </Button>
                     </div>
-                    <div style={{ marginLeft: "3%" }}>
-                        {contents[id - 1]}
-                    </div>
+                    {modifyData == 0 ?
+                        <div style={{ marginLeft: "3%" }}>
+                            {contents[id - 1]}
+                        </div>
+                        :
+                        ModifyForm(id, mypageData)
+                    }
                 </>
             ),
         };
