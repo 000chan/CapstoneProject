@@ -1,21 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <fcntl.h>
+
 #include <unistd.h>
 #include <string.h>
 #include <arpa/inet.h>
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <netinet/in.h>
+#include <netdb.h>
 #include <mysql.h>
+#include <errno.h>
 
 // define
-#define SERVERPORT			12000
-#define LOCAL_BUF_SIZE		128
-#define RECV_GPS_DATA		0
-#define RECV_NONE_GPS_DATA	1
-#define RECV_TERMINATE		2
-#define FIRST_RECV			3
-#define	MAX_CLIENT			63
+#define SERVERPORT					12000
+#define LOCAL_BUF_SIZE				256
+#define RECV_GPS_DATA				0
+#define RECV_NONE_GPS_DATA			1
+#define RECV_TERMINATE				2
+#define FIRST_RECV					3
+#define	MAX_CLIENT					63
+#define DEFAULT_RING_BUF_SIZE		1024
 
 
 // 클래스 정의
@@ -177,7 +182,7 @@ typedef struct stUser
 	int userNum;
 	char Longitude[16];
 	char Latitude[16];
-	SOCKET sock;
+	int sock;
 	CRingBuffer* RecvQ;
 
 }stUSER;
@@ -185,7 +190,7 @@ typedef struct stUser
 
 
 // 전역 변수 정의
-SOCKET g_lisen_sock;
+int g_listen_sock;
 int g_nTotalClient;
 CList<stUSER*> ObjectList;
 char buf[LOCAL_BUF_SIZE];
@@ -211,8 +216,8 @@ int main(int argc, char** argv)
 {
 	int retval;
 
-	g_lisen_sock = socket(AF_INET, SOCK_STREAM, 0);
-	if (g_lisen_sock == INVALID_SOCKET)
+	g_listen_sock = socket(AF_INET, SOCK_STREAM, 0);
+	if (g_listen_sock == -1)
 	{
 		printf("listen_sock");
 		return -1;
@@ -223,16 +228,16 @@ int main(int argc, char** argv)
 	serveraddr.sin_family = AF_INET;
 	serveraddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	serveraddr.sin_port = htons(SERVERPORT);
-	retval = bind(g_lisen_sock, (struct sockaddr*)&serveraddr, sizeof(serveraddr));
-	if (retval == SOCKET_ERROR)
+	retval = bind(g_listen_sock, (struct sockaddr*)&serveraddr, sizeof(serveraddr));
+	if (retval == -1)
 	{
 		printf("bind()");
 		return -1;
 	}
 
 
-	retval = listen(g_lisen_sock, SOMAXCONN);
-	if (retval == SOCKET_ERROR)
+	retval = listen(g_listen_sock, SOMAXCONN);
+	if (retval == -1)
 	{
 		printf("listen()");
 		return -1;
@@ -240,24 +245,31 @@ int main(int argc, char** argv)
 
 
 	// TCP SO_KEEPALIVE Option
+	//*
 	int bEnable = 1;
-	if (setsockopt(g_lisen_sock, SOL_SOCKET, SO_KEEPALIVE, &bEnable, sizeof >
-		err_quit("setsockopt()");
+	if (( setsockopt(g_listen_sock, SOL_SOCKET, SO_KEEPALIVE, &bEnable, sizeof(bEnable)) ) == -1)
+	{
+		return -1;
+	}
+	//*/
 
 
 	// TCP SO_LINGER Option
-	struct linger optval;
-	optval.l_onoff = 0;
-	optval.l_linger = 0;
+	struct linger optval1;
+	optval1.l_onoff = 0;
+	optval1.l_linger = 0;
 	// Make TIME_WAIT 0
-	retval = setsockopt(g_lisen_sock, SOL_SOCKET, SO_LINGER, &optval, size >
-		if (retval == SOCKET_ERROR)
-			err_quit("setsockopt()");
+	retval = setsockopt(g_listen_sock, SOL_SOCKET, SO_LINGER, &optval1, sizeof(optval1));
+	if (retval == -1)
+	{
+		return -1;
+	}
 
 
-	int flags = fcntl(g_lisen_sock, F_GETFL);
-	flags |= 0_NONBLOCK;
-	fcntl(g_lisen_sock, F_SETFL, flags);
+	int flags;
+	flags = fcntl(g_listen_sock, F_GETFL);
+	flags |= O_NONBLOCK;
+	fcntl(g_listen_sock, F_SETFL, flags);
 
 	
 	
@@ -268,7 +280,7 @@ int main(int argc, char** argv)
 		"DKUcap23!", "AKBScapstone", 0, 0, 0);
 	if (connection == NULL)
 	{
-		printf(mysql_error(&mysql));
+		printf("mysql_error(&mysql)");
 		return 1;
 	}
 
@@ -278,7 +290,7 @@ int main(int argc, char** argv)
 	while (1)
 	{
 		FD_ZERO(&rset);
-		FD_SET(g_lisen_sock, &rset);
+		FD_SET(g_listen_sock, &rset);
 
 		CList<stUSER*>::iterator set_iter = ObjectList.begin();
 		for (; set_iter != ObjectList.end(); ++set_iter)
@@ -291,7 +303,7 @@ int main(int argc, char** argv)
 		}
 		
 		retval = select(0, &rset, NULL, NULL, NULL);
-		if (retval == SOCKET_ERROR)
+		if (retval == -1)
 		{
 			printf("select(): %d\n", retval);
 			continue;
@@ -355,8 +367,8 @@ bool AcceptProc()
 	struct sockaddr_in clientaddr;
 	int addrlen = sizeof(clientaddr);
 
-	_ptr->sock = accept(g_listen_sock, (struct sockaddr*)&clientaddr, &addrlen);
-	if (_ptr->_player_sock == INVALID_SOCKET)
+	_ptr->sock = accept(g_listen_sock, (struct sockaddr*)&clientaddr, (socklen_t*)&addrlen);
+	if (_ptr->sock == -1)
 	{
 		printf("accept() Error\n");
 		return false;
@@ -365,8 +377,8 @@ bool AcceptProc()
 
 
 	_ptr->_flag = false;
-	_ptr->Latitude = NULL;
-	_ptr->Longitude = NULL;
+	_ptr->Latitude[0] ='\0';
+	_ptr->Longitude[0] = '\0';
 	_ptr->RecvQ = new CRingBuffer(1460);
 
 	ObjectList.push_back(_ptr);
@@ -387,10 +399,19 @@ bool RecvProc(stUSER* p_user_info)
 
 
 	int getSize;
-	getSize = min(p_user_info->RecvQ->GetFreeSize(), LOCAL_BUF_SIZE);
+	//getSize = min(p_user_info->RecvQ->GetFreeSize(), LOCAL_BUF_SIZE);
+	if (p_user_info->RecvQ->GetFreeSize() > LOCAL_BUF_SIZE)
+	{
+		getSize = LOCAL_BUF_SIZE;
+	}
+	else
+	{
+		getSize = p_user_info->RecvQ->GetFreeSize();
+	}
+
 
 	readRetval = recv(p_user_info->sock, buf, getSize, 0);
-	if (readRetval == SOCKET_ERROR)
+	if (readRetval == -1)
 	{
 		if (readRetval != EWOULDBLOCK || readRetval == 0)
 		{
@@ -399,30 +420,31 @@ bool RecvProc(stUSER* p_user_info)
 		}
 	}
 
-	if ((retval = p_user_info->RecvQ->Enqueue(buf, readRetval)) !- readRetval)
+	if ((retval = p_user_info->RecvQ->Enqueue(buf, readRetval)) != readRetval)
 	{
 		return false;
 	}
 
 
-	temp = strtok(buf, ' ');
+	temp = strtok(buf, " ");
 	protocol = atoi(temp);
 
 
 	if (p_user_info->_flag != true)
 	{
-		temp = strtok(NULL, ' ');
+		temp = strtok(NULL, " ");
 		strcpy(p_user_info->deviceName, temp);
 
 		memset(sqlBuf, 0, LOCAL_BUF_SIZE);
 		sprintf(sqlBuf, "SELECT TargetNum,UserNum FROM Device WHERE DeviceName = \'%s\';", p_user_info->deviceName);
 		mysql_state = mysql_query(connection, sqlBuf);
-		if (state != 0)
+		if (mysql_state != 0)
 		{
 			printf("잘못된 mysql 연결\n");
 			return false;
 		}
 		result = mysql_store_result(connection);
+		/*
 		if (result > 1)
 		{
 			printf("중복된 디바이스 소유자\n");
@@ -433,6 +455,7 @@ bool RecvProc(stUSER* p_user_info)
 			printf("잘못된 디바이스 이름\n");
 			return false;
 		}
+		//*/
 
 		while ((row = mysql_fetch_row(result)) != NULL)
 		{
@@ -440,34 +463,35 @@ bool RecvProc(stUSER* p_user_info)
 		p_user_info->userNum = atoi(row[1]);	
 		}
 
-		temp = strtok(NULL, ' ');
-		p_user_info->Longitude = atoi(temp);
-		temp = strtok(NULL, ' ');
-		p_user_info->Latitude = atoi(temp);
+		temp = strtok(NULL, " ");
+		strcpy(p_user_info->Longitude, temp);
+		temp = strtok(NULL, " ");
+		strcpy(p_user_info->Latitude, temp);
 
 		protocol = FIRST_RECV;
 
 		p_user_info->_flag = true;
 	}
 	
-	swich(protocol)
+	switch(protocol)
 	{
 		case RECV_GPS_DATA:
 		{
-			temp = strtok(NULL, ' ');
-			temp = strtok(NULL, ' ');
-			p_user_info->Longitude = atoi(temp);
-			temp = strtok(NULL, ' ');
-			p_user_info->Latitude = atoi(temp);
+			temp = strtok(NULL, " ");
+			temp = strtok(NULL, " ");
+			strcpy(p_user_info->Longitude, temp);
+			temp = strtok(NULL, " ");
+			strcpy(p_user_info->Latitude, temp);
 
 			memset(sqlBuf, 0, LOCAL_BUF_SIZE);
-			sprintf(sqlBuf, "INSERT INTO PastPath(TargetNum, UserNum, DeviceName, Latitude, Longitude) VALUES(%d, %d, \'%s\', %d, %d);", 
-												p_user_info->targetNum.
+			sprintf(sqlBuf, "INSERT INTO PastPath(TargetNum, UserNum, DeviceName, Latitude, Longitude) VALUES(%d, %d, \'%s\', %s, %s);", 
+												p_user_info->targetNum,
 												p_user_info->userNum,
 												p_user_info->deviceName,
 												p_user_info->Latitude,
 												p_user_info->Longitude);
-			if (state != 0)
+			mysql_state = mysql_query(connection, sqlBuf);
+			if (mysql_state != 0)
 			{
 				printf("잘못된 mysql 연결\n");
 				return false;
@@ -479,13 +503,14 @@ bool RecvProc(stUSER* p_user_info)
 			break;
 		case FIRST_RECV:
 			memset(sqlBuf, 0, LOCAL_BUF_SIZE);
-			sprintf(sqlBuf, "INSERT INTO PastPath(TargetNum, UserNum, DeviceName, Latitude, Longitude) VALUES(%d, %d, \'%s\', %d, %d);",
-											p_user_info->targetNum.
+			sprintf(sqlBuf, "INSERT INTO PastPath(TargetNum, UserNum, DeviceName, Latitude, Longitude) VALUES(%d, %d, \'%s\', %s, %s);",
+											p_user_info->targetNum,
 											p_user_info->userNum,
 											p_user_info->deviceName,
 											p_user_info->Latitude,
 											p_user_info->Longitude);
-			if (state != 0)
+			mysql_state = mysql_query(connection, sqlBuf);
+			if (mysql_state != 0)
 			{
 				printf("잘못된 mysql 연결\n");
 				return false;
@@ -508,20 +533,26 @@ bool RecvProc(stUSER* p_user_info)
 
 bool Disconnect(stUSER* p_user_info)
 {
-	CList<PlayerInfo*>::iterator delete_iter;
+	CList<stUSER*>::iterator delete_iter;
 	char sqlBuf[LOCAL_BUF_SIZE];
+	int mysql_state;
 	
 	memset(sqlBuf, 0, LOCAL_BUF_SIZE);
 	sprintf(sqlBuf, "DELETE FROM PastPath WHERE DeviceName = \'%s\';", p_user_info->deviceName);
-
+	mysql_state = mysql_query(connection, sqlBuf);
+	if (mysql_state != 0)
+	{
+		printf("잘못된 mysql 연결\n");
+		return false;
+	}
 	delete p_user_info->RecvQ;
 	// 소켓 클로즈
-	closesocket(p_user_info->sock);
+	close(p_user_info->sock);
 
-	CList<PlayerInfo*>::iterator delete_iter = ObjectList.begin();
+	delete_iter = ObjectList.begin();
 	for (; delete_iter != ObjectList.end(); ++delete_iter)
 	{
-		if (*delete_iter == p_player_info)
+		if (*delete_iter == p_user_info)
 		{
 			delete* delete_iter;
 			*delete_iter = nullptr;
