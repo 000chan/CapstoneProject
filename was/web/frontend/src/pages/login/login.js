@@ -6,25 +6,23 @@ import axios from "axios";
 function LoginForm() {
     // loginForm input value 검사
     const onFinish = (values) => {
-        console.log('Success:', values);
-        console.log(typeof(values));
         axios
         .post("http://127.0.0.1:8000/user/login/", values)
         .then(function(response){
-            console.log(response);
+            console.log(response.data["message"]);
             if(response.status==200){
                 window.location.replace("/");
                 localStorage.setItem("user", response.data)
             }
         })
         .catch(function(error){
-            console.log(error);
+            console.log(error)
+            alert(error.response.data["message"]);
         })
     };
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
-        console.log(typeof(values));
     };
 
     return (

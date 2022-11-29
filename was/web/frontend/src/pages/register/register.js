@@ -25,8 +25,8 @@ function RegisterForm() {
             .then(function (response) {
                 window.location.replace("/user/login");
             })
-            .catch(function (response) {
-                console.log(response);
+            .catch(function (error) {
+                alert(error.response.data["message"]);
             })
     };
     const onFinishFailed = (errorInfo) => {
