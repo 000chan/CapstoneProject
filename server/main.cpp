@@ -4,7 +4,6 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <fcntl.h>
-
 #include <unistd.h>
 #include <string.h>
 #include <arpa/inet.h>
@@ -22,7 +21,7 @@
 #define FIRST_RECV					3
 #define	MAX_CLIENT					63
 #define DEFAULT_RING_BUF_SIZE		1024
-#define MAXFD				63
+
 
 // 클래스 정의
 template <typename T>
@@ -307,7 +306,7 @@ int main(int argc, char** argv)
 
 	while (1)
 	{
-		//std::cout << "while문 진입 " << std::endl;
+		std::cout << "while문 진입 " << std::endl;
 		FD_ZERO(&rset);
 		FD_SET(g_listen_sock, &rset);
 
@@ -320,7 +319,7 @@ int main(int argc, char** argv)
 			}
 			FD_SET((*set_iter)->sock, &rset);
 		}
-		retval = select(MAXFD, &rset, NULL, NULL, NULL);
+		retval = select(MAX_CLIENT, &rset, NULL, NULL, NULL);
 		std::cout << "select 실행 " << std::endl;
 		if (retval == -1)
 		{
@@ -429,19 +428,21 @@ bool RecvProc(stUSER* p_user_info)
 		getSize = p_user_info->RecvQ->GetFreeSize();
 	}
 
+
 	readRetval = recv(p_user_info->sock, buf, getSize, 0);
 	if (readRetval == -1)
 	{
 		if (readRetval != EWOULDBLOCK || readRetval == 0)
 		{
+			Disconnect(p_user_info);
 			return true;
 		}
-		Disconnect(p_user_info);
 	}
-	else if(readRetval == 0)
+	else if (readRetval == 0)
 	{
 		Disconnect(p_user_info);
 		return true;
+	
 	}
 
 	if ((retval = p_user_info->RecvQ->Enqueue(buf, readRetval)) != readRetval)
@@ -452,6 +453,7 @@ bool RecvProc(stUSER* p_user_info)
 
 	temp = strtok(buf, " ");
 	protocol = atoi(temp);
+
 
 	if (p_user_info->_flag != true)
 	{
