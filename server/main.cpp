@@ -222,8 +222,9 @@ int main(int argc, char** argv)
 	////////////////////////////////////////////////////////////////////////
 	//		데몬 프로세스 생성 구간.
 	///////////////////////////////////////////////////////////////////////
-	/*
+
 	int pid;
+#ifndef __LOG__
 	pid = fork();
 	if (pid > 0) {
 		printf("Parent process id: %d \n", getpid());
@@ -236,9 +237,7 @@ int main(int argc, char** argv)
 		setsid();
 		printf("Deamon Process started");
 	}
-	//*/
-
-
+#endif
 	int retval;
 
 	g_listen_sock = socket(AF_INET, SOCK_STREAM, 0);
