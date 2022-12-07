@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <fcntl.h>
+
 #include <unistd.h>
 #include <string.h>
 #include <arpa/inet.h>
@@ -11,6 +12,9 @@
 #include <netdb.h>
 #include <mysql.h>
 #include <errno.h>
+
+#define __LOG__
+
 
 // define
 #define SERVERPORT					12000
@@ -21,7 +25,7 @@
 #define FIRST_RECV					3
 #define	MAX_CLIENT					63
 #define DEFAULT_RING_BUF_SIZE		1024
-
+#define MAXFD						63
 
 // 클래스 정의
 template <typename T>
@@ -214,6 +218,10 @@ bool Disconnect(stUSER*);
 // 메인 함수.
 int main(int argc, char** argv)
 {
+
+	////////////////////////////////////////////////////////////////////////
+	//		데몬 프로세스 생성 구간.
+	///////////////////////////////////////////////////////////////////////
 	/*
 	int pid;
 	pid = fork();
@@ -259,7 +267,9 @@ int main(int argc, char** argv)
 		printf("listen()");
 		return -1;
 	}
-
+#ifdef __LOG__
+	printf("listen() ###########\n");
+#endif
 
 	// TCP SO_KEEPALIVE Option
 	//*
@@ -268,6 +278,9 @@ int main(int argc, char** argv)
 	{
 		return -1;
 	}
+#ifdef __LOG__
+	printf("SO_KERRPALIVE socket setting ###########\n");
+#endif
 	//*/
 
 
@@ -281,13 +294,19 @@ int main(int argc, char** argv)
 	{
 		return -1;
 	}
+#ifdef __LOG__
+		printf("SO_LINGER socket setting ###########\n");
+#endif
+	
 
 
 	int flags;
 	flags = fcntl(g_listen_sock, F_GETFL);
 	flags |= O_NONBLOCK;
 	fcntl(g_listen_sock, F_SETFL, flags);
-
+#ifdef __LOG__
+	printf("Non-blocking socket setting ###########\n");
+#endif
 	
 	
 
@@ -300,30 +319,35 @@ int main(int argc, char** argv)
 		printf("mysql_error(&mysql)");
 		return 1;
 	}
+#ifdef __LOG__
+	printf("Conect to MySQL ###########\n");
+#endif
 
 
 	fd_set rset;
+	stUSER* pSession;
 
 	while (1)
 	{
-		std::cout << "while문 진입 " << std::endl;
 		FD_ZERO(&rset);
 		FD_SET(g_listen_sock, &rset);
 
 		CList<stUSER*>::iterator set_iter = ObjectList.begin();
 		for (; set_iter != ObjectList.end(); ++set_iter)
 		{
-			if (*set_iter == nullptr)
-			{
-				continue;
-			}
-			FD_SET((*set_iter)->sock, &rset);
+			pSession = *set_iter;
+			FD_SET(pSession->sock, &rset);
 		}
-		retval = select(MAX_CLIENT, &rset, NULL, NULL, NULL);
-		std::cout << "select 실행 " << std::endl;
+
+		retval = select(MAXFD, &rset, NULL, NULL, NULL);
+#ifdef __LOG__
+		printf("# 반응이 온 Socket의 수 : %d\n", retval);
+#endif
 		if (retval == -1)
 		{
-			printf("select(): %d\n", retval);
+#ifdef __LOG__
+			printf("# Error :: 잘못된 Socket이 세팅되었습니다.\n");
+#endif
 			continue;
 		}
 		if (retval > 0)
@@ -374,11 +398,14 @@ bool AcceptProc()
 {
 	if (g_nTotalClient >= MAX_CLIENT)
 	{
-		printf("더 이상 연결할 수 없습니다.\n");
-		return true;
+#ifdef __LOG__
+		printf("# Warning :: 더 이상 연결할 수 없습니다.\n");
+#endif
+		return false;
 	}
 
 	stUSER* _ptr;
+	char addr[INET_ADDRSTRLEN];
 
 	_ptr = new stUSER;
 
@@ -388,11 +415,20 @@ bool AcceptProc()
 	_ptr->sock = accept(g_listen_sock, (struct sockaddr*)&clientaddr, (socklen_t*)&addrlen);
 	if (_ptr->sock == -1)
 	{
-		printf("accept() Error\n");
+
+#ifdef __LOG__
+		printf("accept() Error ###############\n");
+#endif
 		return false;
 	}
 	g_nTotalClient++;
 
+	inet_ntop(AF_INET, &clientaddr.sin_addr, addr, sizeof(addr));
+
+#ifdef __LOG__
+	printf("# 연결된 Client 소켓의 정보 // IP : %s, Port, %d\n", addr, ntohs(clientaddr.sin_port));
+	printf("# 현재 연결된 Client의 수 : %d\n", g_nTotalClient);
+#endif
 
 	_ptr->_flag = false;
 	_ptr->Latitude[0] ='\0';
@@ -405,7 +441,7 @@ bool AcceptProc()
 
 bool RecvProc(stUSER* p_user_info)
 {
-	printf("RecvProc\n");
+	
 	int retval;
 	int readRetval;
 	char* temp;
@@ -415,10 +451,7 @@ bool RecvProc(stUSER* p_user_info)
 
 	memset(buf, 0, LOCAL_BUF_SIZE);
 
-
-
 	int getSize;
-	//getSize = min(p_user_info->RecvQ->GetFreeSize(), LOCAL_BUF_SIZE);
 	if (p_user_info->RecvQ->GetFreeSize() > LOCAL_BUF_SIZE)
 	{
 		getSize = LOCAL_BUF_SIZE;
@@ -428,21 +461,20 @@ bool RecvProc(stUSER* p_user_info)
 		getSize = p_user_info->RecvQ->GetFreeSize();
 	}
 
-
 	readRetval = recv(p_user_info->sock, buf, getSize, 0);
 	if (readRetval == -1)
 	{
-		if (readRetval != EWOULDBLOCK || readRetval == 0)
+		if (readRetval != EWOULDBLOCK)
 		{
 			Disconnect(p_user_info);
 			return true;
 		}
+		//Disconnect(p_user_info);
 	}
-	else if (readRetval == 0)
+	else if(readRetval == 0)
 	{
 		Disconnect(p_user_info);
 		return true;
-	
 	}
 
 	if ((retval = p_user_info->RecvQ->Enqueue(buf, readRetval)) != readRetval)
@@ -454,7 +486,6 @@ bool RecvProc(stUSER* p_user_info)
 	temp = strtok(buf, " ");
 	protocol = atoi(temp);
 
-
 	if (p_user_info->_flag != true)
 	{
 		temp = strtok(NULL, " ");
@@ -462,7 +493,9 @@ bool RecvProc(stUSER* p_user_info)
 
 		memset(sqlBuf, 0, LOCAL_BUF_SIZE);
 		sprintf(sqlBuf, "SELECT TargetNum,UserNum FROM Device WHERE DeviceName = \'%s\';", p_user_info->deviceName);
-		printf("%s\n", sqlBuf);
+#ifdef __LOG__
+		printf("## %s :: %s\n", p_user_info->deviceName, sqlBuf);
+#endif
 		mysql_state = mysql_query(connection, sqlBuf);
 		if (mysql_state != 0)
 		{
@@ -486,7 +519,7 @@ bool RecvProc(stUSER* p_user_info)
 		while ((row = mysql_fetch_row(result)) != NULL)
 		{
 		p_user_info->targetNum = atoi(row[0]);
-		p_user_info->userNum = atoi(row[1]);	
+		p_user_info->userNum = atoi(row[1]);
 		}
 
 		temp = strtok(NULL, " ");
@@ -516,7 +549,9 @@ bool RecvProc(stUSER* p_user_info)
 												p_user_info->deviceName,
 												p_user_info->Latitude,
 												p_user_info->Longitude);
-			printf("%s\n", sqlBuf);
+#ifdef __LOG__
+			printf("## %s :: %s\n", p_user_info->deviceName, sqlBuf);
+#endif
 			mysql_state = mysql_query(connection, sqlBuf);
 			if (mysql_state != 0)
 			{
@@ -536,7 +571,9 @@ bool RecvProc(stUSER* p_user_info)
 											p_user_info->deviceName,
 											p_user_info->Latitude,
 											p_user_info->Longitude);
-			printf("%s\n", sqlBuf);
+#ifdef __LOG__
+			printf("## %s :: %s\n", p_user_info->deviceName, sqlBuf);
+#endif
 			mysql_state = mysql_query(connection, sqlBuf);
 			if (mysql_state != 0)
 			{
@@ -568,7 +605,7 @@ bool Disconnect(stUSER* p_user_info)
 	
 	memset(sqlBuf, 0, LOCAL_BUF_SIZE);
 	sprintf(sqlBuf, "DELETE FROM PastPath WHERE DeviceName = \'%s\';", p_user_info->deviceName);
-	printf("%s\n", sqlBuf);
+	printf("# 소켓 연결을 종료합니다. 대상 : %s\n Query : %s\n", p_user_info->deviceName, sqlBuf);
 	mysql_state = mysql_query(connection, sqlBuf);
 	if (mysql_state != 0)
 	{
