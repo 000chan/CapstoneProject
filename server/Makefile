@@ -1,18 +1,16 @@
-.PHONY: all clean
+.PHONY: all clean test
 
 CC = gcc
-
-INC_DIR = include
-SRC_DIR = hiredis main
-OBJ_DIR = obj
 
 #CFALGS
 LDFLAGS = -pthread -lmysqlclient
 
 
-
-
-
+main: main.cpp
+	g++ -o main $(mysql_config --cflags) main.cpp $(mysql_config --libs)
 
 clean:
-	rm -rf &(PROG) $(OBJ_DIR)
+	rm -rf main test
+
+test: test.cpp
+	g++ -o test test.cpp
